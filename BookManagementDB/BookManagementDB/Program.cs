@@ -8,12 +8,10 @@ namespace BookManagementDB
 {
     class Program
     {
-        private Singletone main = Singletone.getsingletone();
         static void Main(string[] args)
         {
-
-            Singletone.getsingletone().getMenu().Connection();
-
+            ShareClass share = ShareClass.getShareClass();
+            share.getMember().addMember();
         }
     }
 }

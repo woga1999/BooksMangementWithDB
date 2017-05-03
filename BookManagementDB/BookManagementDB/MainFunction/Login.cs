@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace BookManagementDB
 {
-    class Member
+    class Login
     {
+        public void login()
+        {
+
+        }
+        public void adminLogin()
+        {
+
+        }
     }
 }

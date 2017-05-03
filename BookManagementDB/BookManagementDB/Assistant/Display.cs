@@ -8,16 +8,16 @@ namespace BookManagementDB
 {
     class Display
     {
-        public void Mainmenu()
+        public void mainMenuDisplay()
         {
             Console.WriteLine("\t\tWelcome Online Libary");
             Console.WriteLine("\n\n\t\t1. Membership Login");
             Console.WriteLine("\n\t\t2. Membership Join");
             
-            Console.WriteLine("\n\t\t ☞ : ");
+            Console.Write("\n\n ");
         }
 
-        public void AdministrationMode()
+        public void administrationModeDisplay()
         {
             Console.WriteLine("\n\n\t\t1. Members List");
             Console.WriteLine("\n\t\t2. Books List");
@@ -25,11 +25,12 @@ namespace BookManagementDB
             Console.WriteLine("\n\t4. Exit");
             Console.WriteLine("\n\t\t ☞ : ");
         }
-        public void LoginMember()
+
+        public void LoginMemberDisplay()
         {
             Console.WriteLine("\n\n\t\t1. Want to Rent Book");
             Console.WriteLine("\n\t\t2. Return Book");
-            Console.WriteLine("\n\t3. Confrim Which Books are rented and How long can rent");
+            Console.WriteLine("\n\t3. Confirm Which Books are rented and How long can rent");
             Console.WriteLine("\n\t4. Logout");
             Console.WriteLine("\n\t\t ☞ : ");
         }

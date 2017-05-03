@@ -47,15 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Administrator.cs" />
-    <Compile Include="Book.cs" />
-    <Compile Include="BookVO.cs" />
-    <Compile Include="Display.cs" />
-    <Compile Include="Login.cs" />
-    <Compile Include="Singletone.cs" />
-    <Compile Include="Member.cs" />
-    <Compile Include="MemberVO.cs" />
-    <Compile Include="Menu.cs" />
+    <Compile Include="MainFunction\Book.cs" />
+    <Compile Include="VO\BookVO.cs" />
+    <Compile Include="MainFunction\DataBase.cs" />
+    <Compile Include="Assistant\Display.cs" />
+    <Compile Include="MainFunction\Exception.cs" />
+    <Compile Include="MainFunction\Login.cs" />
+    <Compile Include="Assistant\ShareClass.cs" />
+    <Compile Include="MainFunction\Member.cs" />
+    <Compile Include="VO\MemberVO.cs" />
+    <Compile Include="MainFunction\Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

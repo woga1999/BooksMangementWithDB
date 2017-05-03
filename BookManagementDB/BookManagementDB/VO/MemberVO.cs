@@ -14,10 +14,11 @@ namespace BookManagementDB
         private string identiification;
         private string password;
 
-        public MemberVO(string name, string birthday, string phonenum) //개인적인 정보들이기 때문에 private로 선언하고 정보를 뺴온다.
+        public MemberVO(string id, string pwd, string name, string birthday) //개인적인 정보들이기 때문에 private로 선언하고 정보를 뺴온다.
         {
+            identiification = id;
+            password = pwd;
             memberName = name;
-            memberNum = phonenum;
             memberBirth = birthday;
         }
 
@@ -31,12 +32,6 @@ namespace BookManagementDB
         {
             get { return memberBirth; }
             set { memberBirth = value; }
-        }
-
-        public string phonenum
-        {
-            get { return memberNum; }
-            set { memberNum = value; }
         }
 
         public string id

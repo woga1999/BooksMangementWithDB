@@ -11,13 +11,12 @@ namespace BookManagementDB
     class Menu
     {
         private static ShareClass share = ShareClass.getShareClass();
-        string inputException = share.getException().exceptKey("1", "2", "OpenAdmin");
         string input = null;
 
         public void mainMenu()
         {
             share.getDisplay().mainMenuDisplay();
-            input = inputException;
+            input = share.getException().exceptKey("1", "2", "OpenAdmin");
 
             if(input == "1") { share.getLogin().login(); }
             else if(input =="2") { share.getMember().addMember(); }

@@ -8,49 +8,55 @@ using MySql.Data.MySqlClient;
 
 namespace BookManagementDB
 {
-    class Singletone
-    { //여기서 싱글톤 하기
-        private static Singletone singletone;
+    class ShareClass
+    { // 싱글톤 하기
+        private static ShareClass shareclass;
         Login login;
         Display display;
         Book book;
         Member member;
         Menu menu;
-        Administrator administrator;
-        List<BookVO> booklist = new List<BookVO>();
-        List<MemberVO> memberlist = new List<MemberVO>();
+        Exception exception;
 
-        private Singletone()
+        private ShareClass()
         {
             login = new Login();
             display = new Display();
             book = new Book();
             member = new Member();
             menu = new Menu();
-            administrator = new Administrator();
-            
+            exception = new Exception();
         }
+
         public Login getLogin()
         {
             return login;
         }
-        public static Singletone getsingletone()
+
+        public static ShareClass getShareClass()
         {
-            if (singletone == null) singletone = new Singletone();
-            return singletone;
+            if (shareclass == null) shareclass = new ShareClass();
+            return shareclass;
         }
+
         public Member getMember()
         {
             return member;
         }
+
         public Menu getMenu()
         {
             return menu;
         }
-        public Administrator getAdministrator()
+
+        public Display getDisplay()
         {
-            return administrator;
+            return display;
         }
-       
+
+        public Exception getException()
+        {
+            return exception;
+        }
     }
 }
