@@ -11,7 +11,7 @@ namespace BookManagementDB
     { 
         string input = null;
         private static ShareClass share = ShareClass.getShareClass();
-        public string exceptKey(string key, string key2, string key3)
+        public string exceptKey(string key, string key2, string key3, string key4)
         {
             
             while (true)
@@ -22,6 +22,7 @@ namespace BookManagementDB
                 else if (input == key) { break; }
                 else if (input == key2) { break; }
                 else if(input == key3) { break; }
+                else if (input == key4) { break; }
                 else
                     continue;
             }
@@ -92,12 +93,12 @@ namespace BookManagementDB
             {
                 Console.Write("{0} : ", direct);
                 input = Console.ReadLine();
-                bool IsExistId = IsIdDuplication(input);
+                bool IsExistId = share.getDataBase().IsIdDuplication(input);
                 Regex regex = new Regex(@"^[a-zA-z0-9]{6,10}");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
-                    if (IsExistId == true) { Console.WriteLine("존재하는 ID입니다."); }
+                    if (IsExistId == true) { Console.WriteLine("\t\t존재하는 ID입니다."); }
                     else if (IsExistId == false) { break; }
                 }
                 else if(input == "back") { share.getMenu().mainMenu(); }
@@ -106,17 +107,6 @@ namespace BookManagementDB
             return input;
         }
 
-        public bool IsIdDuplication(string userid)
-        {
-            bool duplication = false;
-             if (userid == share.getMember().membervo.id) { duplication = true; }
-                else
-                {
-                    duplication = false;
-                }
-            
-            return duplication;
-        }
         public string onlyNum(string message)
         {
             while (true)
@@ -130,6 +120,26 @@ namespace BookManagementDB
                     break; 
                 }
                 else if (!ismatch) { Console.WriteLine("숫자만 입력 가능합니다"); }
+            }
+            return input;
+        }
+
+        public string notEnter(string message)
+        {
+            while (true)
+            {
+                Console.Write("\t {0} : ", message);
+                input = Console.ReadLine();
+                //Regex regex = new Regex(@"^[가-힣a-zA-Z]");
+                //Boolean ismatch = regex.IsMatch(input);
+                if (input == "")
+                {
+                    continue;
+                }
+                else
+                {
+                    break;
+                }
             }
             return input;
         }

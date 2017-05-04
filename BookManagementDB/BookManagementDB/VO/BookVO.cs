@@ -8,7 +8,7 @@ namespace BookManagementDB
 {
     class BookVO
     {
-        //private string bookNo;
+        
         private string bookTitle;
         private string bookWriter;
         private string bookPrice;

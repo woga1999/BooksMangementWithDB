@@ -47,10 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseFunction\BookDataBase.cs" />
     <Compile Include="MainFunction\Book.cs" />
     <Compile Include="MainFunction\RentAndReturnBook.cs" />
     <Compile Include="VO\BookVO.cs" />
-    <Compile Include="MainFunction\DataBase.cs" />
+    <Compile Include="DatabaseFunction\DataBase.cs" />
     <Compile Include="Assistant\Display.cs" />
     <Compile Include="MainFunction\Exception.cs" />
     <Compile Include="MainFunction\Login.cs" />

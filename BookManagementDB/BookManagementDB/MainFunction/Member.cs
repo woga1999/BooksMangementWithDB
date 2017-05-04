@@ -11,7 +11,7 @@ namespace BookManagementDB
     class Member
     {
         private static ShareClass share = ShareClass.getShareClass();
-        public MemberVO membervo = new MemberVO(null, null, null, null, null, null);
+        public MemberVO membervo = new MemberVO(null, null, null, null);
         
         string input = null;
         public void addMember(string message) //회원정보 등록할 때 필요하다.
@@ -20,13 +20,13 @@ namespace BookManagementDB
             membervo.id = share.getException().inputId("\t ID");
             Console.Write("\t Password: ");
             membervo.pwd = Console.ReadLine(); //회원정보 등록할 때는 보이게 한다.
-            Console.Write("\t Name:");
+            Console.Write("\t Name: ");
             membervo.name = Console.ReadLine();
             Console.Write("\t Birth: ");
             membervo.birthday = Console.ReadLine();
 
-            
-            share.getDataBase().addMemberInDB(membervo.id, membervo.pwd, membervo.name, membervo.birthday, null, null);
+            new MemberVO(membervo.id, membervo.pwd, membervo.name, membervo.birthday);
+            share.getDataBase().addMemberInDB(membervo.id, membervo.pwd, membervo.name, membervo.birthday);
 
         }
 
@@ -47,17 +47,17 @@ namespace BookManagementDB
                             //share.getDataBase().deleteMemberInDB(memberList[removeIndex].id, memberList[removeIndex].pwd, memberList[removeIndex].name, memberList[removeIndex].birthday, memberList[removeIndex].rentbook, memberList[removeIndex].duringrent);
                 }
                 else
-                    Console.WriteLine("존재하지 않는 회원입니다.");
+                    Console.WriteLine("Not exist Member");
             }
             else
-                Console.WriteLine("이름이 존재하지 않습니다.");
+                Console.WriteLine("Not exist Name.");
 
             //존재하지 않으니 전 메뉴 모음으로 돌아가기, 삭제했으니 전 메뉴 모음으로 돌아가기
         }
 
         public void modifyMember() //회원이 로그인해서 회원수정하고 싶을 때
         {
-            Console.WriteLine("\n\t 수정하고 싶으시면 Id와 Password를 입력해주세요! ");
+            Console.WriteLine("\n\t If you want to modify info that you put 'ID' and 'PassWord'! ");
             input = share.getException().inputId("\t ID");
             Console.Write("\t Password: ");
             string input2 = share.getException().inputpwd();
@@ -69,10 +69,10 @@ namespace BookManagementDB
                     addMember("Membership Modify");
                 }
                 else
-                    Console.WriteLine("존재하지 않는 회원입니다.");
+                    Console.WriteLine("Not exist Member");
             }
             else
-                Console.WriteLine("Id가 존재하지 않습니다.");
+                Console.WriteLine("Not exist ID");
         }
         public void searchMember()
         {

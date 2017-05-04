@@ -9,21 +9,17 @@ namespace BookManagementDB
     class MemberVO
     {
         private string memberName;
-        //private string memberNum;
         private string memberBirth;
         private string identiification;
         private string password;
-        private string rentWhichBook;
-        private string duringRent;
+        
 
-        public MemberVO(string id, string pwd, string name, string birthday, string rentbook, string duringrent) //개인적인 정보들이기 때문에 private로 선언하고 정보를 뺴온다.
+        public MemberVO(string id, string pwd, string name, string birthday) //개인적인 정보들이기 때문에 private로 선언하고 정보를 뺴온다.
         {
             identiification = id;
             password = pwd;
             memberName = name;
             memberBirth = birthday;
-            rentWhichBook = rentbook;
-            duringRent = duringrent;
         }
 
         public string name
@@ -49,17 +45,6 @@ namespace BookManagementDB
             get { return password; }
             set { password = value; }
         }
-
-        public string rentbook
-        {
-            get { return rentWhichBook; }
-            set { rentWhichBook = value; }
-        }
-
-        public string duringrent
-        {
-            get { return duringRent; }
-            set { duringRent = value; }
-        }
+        
     }
 }
