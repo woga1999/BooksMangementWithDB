@@ -11,7 +11,8 @@ namespace BookManagementDB
     class Member
     {
         private static ShareClass share = ShareClass.getShareClass();
-        public MemberVO membervo = new MemberVO(null, null, null, null);
+        public MemberVO membervo = new MemberVO(null, null, null, null, null, null);
+        public List<MemberVO> memberList = new List<MemberVO>();
         string input = null;
         public void addMember() //회원정보 등록할 때 필요하다.
         {
@@ -20,20 +21,49 @@ namespace BookManagementDB
             Console.WriteLine("");
             membervo.id = share.getException().inputId("\t ID");
             Console.Write("\t Password: ");
-            membervo.pwd = share.getException().inputpwd();
+            membervo.pwd = Console.ReadLine(); //회원정보 등록할 때는 보이게 한다.
             Console.Write("\t Name:");
             membervo.name = Console.ReadLine();
             Console.Write("\t Birth: ");
             membervo.birthday = Console.ReadLine();
 
-            new MemberVO(membervo.id, membervo.pwd, membervo.name, membervo.birthday);
-            share.getDataBase().addMemberInDB(membervo.id, membervo.pwd, membervo.name, membervo.birthday);
+            memberList.Add(new MemberVO(membervo.id, membervo.pwd, membervo.name, membervo.birthday,null, null));
+            share.getDataBase().addMemberInDB(membervo.id, membervo.pwd, membervo.name, membervo.birthday, null, null);
 
         }
 
         public void deleteMember()
         {
-            Console.WriteLine("\n\t 삭제 할 Id와 Password를 입력해주세요");
+            Console.WriteLine("\n\t Put Member's Name and Id ");
+            Console.Write("\t Member Name: ");
+            input = Console.ReadLine();
+            string input2 = share.getException().inputId("\t ID");
+            if (input == membervo.name)
+            {
+                if (input2 == membervo.id)
+                {
+                    for (int index = 0; index < memberList.Count; index++)
+                    {
+                        if (memberList[index].id == membervo.id)
+                        {
+                            int removeIndex = index;
+                            memberList.RemoveAt(removeIndex);
+                            share.getDataBase().deleteMemberInDB(memberList[removeIndex].id, memberList[removeIndex].pwd, memberList[removeIndex].name, memberList[removeIndex].birthday);
+                        }
+                    }
+                }
+                else
+                    Console.WriteLine("존재하지 않는 회원입니다.");
+            }
+            else
+                Console.WriteLine("이름이 존재하지 않습니다.");
+
+            //존재하지 않으니 전 메뉴 모음으로 돌아가기, 삭제했으니 전 메뉴 모음으로 돌아가기
+        }
+
+        public void modifyMember() //회원이 로그인해서 회원수정하고 싶을 때
+        {
+            Console.WriteLine("\n\t 수정하고 싶으시면 Id와 Password를 입력해주세요! ");
             input = share.getException().inputId("\t ID");
             Console.Write("\t Password: ");
             string input2 = share.getException().inputpwd();
@@ -48,10 +78,6 @@ namespace BookManagementDB
             }
             else
                 Console.WriteLine("Id가 존재하지 않습니다.");
-        }
-        public void modifyMember() //회원이 로그인해서 회원수정하고 싶을 때
-        {
-
         }
         public void searchMember()
         {

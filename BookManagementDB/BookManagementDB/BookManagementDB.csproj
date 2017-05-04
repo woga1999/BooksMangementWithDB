@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainFunction\Book.cs" />
+    <Compile Include="MainFunction\RentAndReturnBook.cs" />
     <Compile Include="VO\BookVO.cs" />
     <Compile Include="MainFunction\DataBase.cs" />
     <Compile Include="Assistant\Display.cs" />

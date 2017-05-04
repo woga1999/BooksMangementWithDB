@@ -13,7 +13,7 @@ namespace BookManagementDB
             Console.WriteLine("\t\tWelcome Online Libary");
             Console.WriteLine("\n\n\t\t1. Membership Login");
             Console.WriteLine("\n\t\t2. Membership Join");
-            
+            Console.WriteLine("\n\t\t3. Exit");
             Console.Write("\n\n ");
         }
 
@@ -35,33 +35,27 @@ namespace BookManagementDB
             Console.WriteLine("\n\t5. Logout");
             Console.WriteLine("\n\t\t ☞ : ");
         }
-        //public void JoinMember()
-        //{
-        //    Console.WriteLine("\n\n\t\tName: ");
-        //    Console.WriteLine("\n\t\tBirth: ");
-        //    Console.WriteLine("\n\tId: ");
-        //    Console.WriteLine("\n\tPassword: ");
-        //}
+
         public void login()
         {
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("| Login    :                    |");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("| Password :                    |");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("");
+            Console.WriteLine("      +-------------------------------+");
+            Console.WriteLine("      |                               |");
+            Console.WriteLine("      | Login    :                    |");
+            Console.WriteLine("      |                               |");
+            Console.WriteLine("      +-------------------------------+");
+            Console.WriteLine("      |                               |");
+            Console.WriteLine("      | Password :                    |");
+            Console.WriteLine("      |                               |");
+            Console.WriteLine("      +-------------------------------+");
+            Console.WriteLine();
         }
+
         public void membershipBar()
         {
             Console.WriteLine();
-            Console.WriteLine(String.Format("\tId\t\tPassWord\t\tName\t\tBirth"));
+            Console.WriteLine(String.Format("\tID\t\tPassWord\t\tName\t\tBirth"));
             Console.WriteLine("====================================================================");
             Console.WriteLine("");
-            
         }
 
         public void bookBar()
