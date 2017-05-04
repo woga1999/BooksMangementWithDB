@@ -7,18 +7,16 @@ using System.Threading;
 using MySql.Data.MySqlClient;
 
 namespace BookManagementDB
-{
+{//회원 등록, 삭제, 수정 등 회원 관련한 기능들
     class Member
     {
         private static ShareClass share = ShareClass.getShareClass();
         public MemberVO membervo = new MemberVO(null, null, null, null, null, null);
-        public List<MemberVO> memberList = new List<MemberVO>();
+        
         string input = null;
-        public void addMember() //회원정보 등록할 때 필요하다.
+        public void addMember(string message) //회원정보 등록할 때 필요하다.
         {
-            Console.WriteLine("\t\t -Membership Join-          ");
-            Console.WriteLine("                                       Wanna back put <back>");
-            Console.WriteLine("");
+            share.getDisplay().status(message);
             membervo.id = share.getException().inputId("\t ID");
             Console.Write("\t Password: ");
             membervo.pwd = Console.ReadLine(); //회원정보 등록할 때는 보이게 한다.
@@ -27,7 +25,7 @@ namespace BookManagementDB
             Console.Write("\t Birth: ");
             membervo.birthday = Console.ReadLine();
 
-            memberList.Add(new MemberVO(membervo.id, membervo.pwd, membervo.name, membervo.birthday,null, null));
+            
             share.getDataBase().addMemberInDB(membervo.id, membervo.pwd, membervo.name, membervo.birthday, null, null);
 
         }
@@ -38,19 +36,15 @@ namespace BookManagementDB
             Console.Write("\t Member Name: ");
             input = Console.ReadLine();
             string input2 = share.getException().inputId("\t ID");
+
             if (input == membervo.name)
             {
                 if (input2 == membervo.id)
                 {
-                    for (int index = 0; index < memberList.Count; index++)
-                    {
-                        if (memberList[index].id == membervo.id)
-                        {
-                            int removeIndex = index;
-                            memberList.RemoveAt(removeIndex);
-                            share.getDataBase().deleteMemberInDB(memberList[removeIndex].id, memberList[removeIndex].pwd, memberList[removeIndex].name, memberList[removeIndex].birthday);
-                        }
-                    }
+                            share.getDataBase().deleteMemberInDB(membervo.id,membervo.name);
+                            //int removeIndex = index;
+                            //memberList.RemoveAt(removeIndex);
+                            //share.getDataBase().deleteMemberInDB(memberList[removeIndex].id, memberList[removeIndex].pwd, memberList[removeIndex].name, memberList[removeIndex].birthday, memberList[removeIndex].rentbook, memberList[removeIndex].duringrent);
                 }
                 else
                     Console.WriteLine("존재하지 않는 회원입니다.");
@@ -71,7 +65,8 @@ namespace BookManagementDB
             {
                 if (input == membervo.pwd)
                 {
-                    share.getDataBase().deleteMemberInDB(membervo.id, membervo.pwd, membervo.name, membervo.birthday);
+                    share.getDataBase().deleteMemberInDB(membervo.id, membervo.name);
+                    addMember("Membership Modify");
                 }
                 else
                     Console.WriteLine("존재하지 않는 회원입니다.");

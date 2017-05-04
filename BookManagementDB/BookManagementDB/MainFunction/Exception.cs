@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 namespace BookManagementDB
-{
+{//입력, 겹칠 수 있는 것들, 오류 날 수 있는 것들의 예외 처리 등 
     class Exception
-    {
+    { 
         string input = null;
         private static ShareClass share = ShareClass.getShareClass();
         public string exceptKey(string key, string key2, string key3)
@@ -86,7 +86,7 @@ namespace BookManagementDB
             return stringbuilder.ToString();
         }
 
-        public string inputId(string direct)
+        public string inputId(string direct) //back이 들어있는 예외처리함수
         {
             while (true)
             {
@@ -109,15 +109,29 @@ namespace BookManagementDB
         public bool IsIdDuplication(string userid)
         {
             bool duplication = false;
-            for(int index = 0; index < share.getMember().memberList.Count; index++)
-            {
-                if (userid == share.getMember().memberList[index].id) { duplication = true; }
+             if (userid == share.getMember().membervo.id) { duplication = true; }
                 else
                 {
                     duplication = false;
                 }
-            }
+            
             return duplication;
+        }
+        public string onlyNum(string message)
+        {
+            while (true)
+            {
+                Console.Write("\t {0} : ", message);
+                input = Console.ReadLine();
+                Regex regex = new Regex(@"^[0-9]");
+                Boolean ismatch = regex.IsMatch(input);
+                if (ismatch)
+                {
+                    break; 
+                }
+                else if (!ismatch) { Console.WriteLine("숫자만 입력 가능합니다"); }
+            }
+            return input;
         }
     }
     

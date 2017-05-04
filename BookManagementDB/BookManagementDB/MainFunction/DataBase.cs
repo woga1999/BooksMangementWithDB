@@ -7,7 +7,7 @@ using System.Threading;
 using MySql.Data.MySqlClient;
 
 namespace BookManagementDB
-{
+{//데이터베이스 이용해 쓰는 기능들 모아놓은 클래스
     class DataBase
     {
         private static ShareClass share = ShareClass.getShareClass();
@@ -49,16 +49,16 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public void deleteMemberInDB(string memberId, string memberPwd, string memberName, string memberBirth, string whichBookRented, string duringRent)
+        public void deleteMemberInDB(string memberId, string memberName/*, string memberPwd, , string memberBirth, string whichBookRented, string duringRent*/)
         {
-            memberId = " "; memberPwd = " "; memberName = " "; memberBirth = " ";
+            memberId = " "; 
 
             strConn = "Server=localhost; Database=membership; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn); //MySQL 연결
 
             conn.Open();
 
-            string sql = "delete into member values('" + memberId + "', '" + memberPwd + "', '" + memberName + "', '" + memberBirth + "', '"+ whichBookRented+"', '"+ duringRent+"'); ";
+            string sql = "delete from member where memberid = '" + memberId + "'; ";
             MySqlCommand cmd = new MySqlCommand(sql, conn); // command
             if (cmd.ExecuteNonQuery() == 1)
             {
