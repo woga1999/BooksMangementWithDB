@@ -16,17 +16,17 @@ namespace BookManagementDB
         string input = null;
         public void addMember(string message) //회원정보 등록할 때 필요하다.
         {
-            share.getDisplay().status(message);
-            membervo.id = share.getException().inputId("\t ID");
+            share.getDisplay().status(message); //등록 시 보일 디스플레이
+            membervo.id = share.getException().inputId("\t ID"); //ID의 예외처리 6~10자리 사이 숫자와영어 조합만 가능
             Console.Write("\t Password: ");
-            membervo.pwd = Console.ReadLine(); //회원정보 등록할 때는 보이게 한다.
+            membervo.pwd = Console.ReadLine(); //회원정보 등록할 때는 비밀번호가 보이게 한다.
             Console.Write("\t Name: ");
             membervo.name = Console.ReadLine();
             Console.Write("\t Birth: ");
             membervo.birthday = Console.ReadLine();
 
             new MemberVO(membervo.id, membervo.pwd, membervo.name, membervo.birthday);
-            share.getDataBase().addMemberInDB(membervo.id, membervo.pwd, membervo.name, membervo.birthday);
+            share.getDataBase().addMemberInDB(membervo.id, membervo.pwd, membervo.name, membervo.birthday); //데이터베이스에 정보 추가
 
         }
 

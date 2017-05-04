@@ -19,10 +19,23 @@ namespace BookManagementDB
             share.getDisplay().mainMenuDisplay();
             input = share.getException().exceptKey("1", "2", "3","/OpenAdmin");
 
-            if(input == "1") { Console.Clear(); share.getBookDataBase().booksAllSearchOfDB();  share.getLogin().login(); } //등록한 정보가 있으면 로그인 창으로 
-            else if(input =="2") { Console.Clear();  share.getMember().addMember("Membership Join"); mainMenu(); } //회원 등록하기
-            else if (input == "3") { Console.Clear(); Console.WriteLine("                            프로그램 종료합니다 ");  }
-            else if(input == "/OpenAdmin") { Console.Clear(); share.getLogin().adminLogin(); } //숨겨진 관리자 모드 오직 관리자만이 아는 명령어
+            if(input == "1")   //등록한 정보가 있으면 로그인 창으로 
+            { Console.Clear();
+                share.getBookDataBase().booksAllSearchOfDB();
+                share.getLogin().login();
+            } 
+            else if(input =="2") //회원 등록하기
+            {
+                Console.Clear();
+                share.getMember().addMember("Membership Join");
+                mainMenu();
+            } 
+            else if (input == "3") //종료
+            {
+                Console.Clear();
+                Console.WriteLine("                            프로그램 종료합니다 ");
+            }
+            else if(input == "/OpenAdmin") {  share.getLogin().adminLogin(); } //숨겨진 관리자 모드 오직 관리자만이 아는 명령어
         }
 
         public void menuLoginAdmin()
@@ -102,13 +115,13 @@ namespace BookManagementDB
                 case "1": //책 전체 출력
                     searchAboutBook();
                     break;
-                case "2": //책 저자만 검색
+                case "2": //책 저자으로 검색
                     searchAboutBook();
                     break;
-                case "3": //책 이름만 검색
+                case "3": //책 이름으로 검색
                     searchAboutBook();
                     break;
-                case "4": //책 
+                case "4": //책 가격으로 검색
                     searchAboutBook();
                     break;
                 case "5": //로그인하고 난 후 창으로 뜨기

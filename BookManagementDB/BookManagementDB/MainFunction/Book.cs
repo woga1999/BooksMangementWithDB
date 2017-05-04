@@ -26,7 +26,7 @@ namespace BookManagementDB
             bookvo.volume = share.getException().onlyNum("Volume");
 
             new BookVO(bookvo.bookName, bookvo.author, bookvo.price, bookvo.volume, false);
-            share.getBookDataBase().addBookInDB(bookvo.bookName, bookvo.author, bookvo.price, bookvo.volume, "대여 가능");
+            share.getBookTable().addBookInDB(bookvo.bookName, bookvo.author, bookvo.price, bookvo.volume, "대여 가능");
 
         }
 
@@ -40,7 +40,7 @@ namespace BookManagementDB
             {
                 if (input2 == bookvo.author)
                 {
-                    share.getBookDataBase().deleteBookInDB(input);
+                    share.getBookTable().deleteBookInDB(input);
                     addBook("BookInfo Modify");
                 }
                 else

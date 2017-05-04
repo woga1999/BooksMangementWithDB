@@ -7,9 +7,11 @@ using System.Threading;
 using MySql.Data.MySqlClient;
 
 namespace BookManagementDB
-{//Membership 데이터베이스 이용해 쓰는 기능들 모아놓은 클래스
-    class DataBase
+{//Member 테이블 이용해 쓰는 기능들 모아놓은 클래스
+
+    class MemberTable
     {
+        
         private static ShareClass share = ShareClass.getShareClass();
         String strConn;
         MySqlConnection conn;
@@ -19,35 +21,30 @@ namespace BookManagementDB
         string birth = null;
         public void addMemberInDB(string memberId, string memberPwd, string memberName, string memberBirth)
         {
-                        
+
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn); //MySQL 연결
-            
+
             conn.Open();
 
             string sql = "insert into member values('" + memberId + "', '" + memberPwd + "', '" + memberName + "', '" + memberBirth + "');";
             MySqlCommand cmd = new MySqlCommand(sql, conn); // command
-            int count = (int)cmd.ExecuteScalar();
-            if (count > 0) { Console.Write("already exist in Database"); share.getMember().addMember("Membership OnemoreEntry"); }
-            else if (count == 0)
+
+            if (cmd.ExecuteNonQuery() == 1)
             {
-                if (cmd.ExecuteNonQuery() == 1)
-                {
-                    Console.Clear();
-                    Console.WriteLine("\n\n\n\n");
-                    Console.WriteLine("\t\t" + memberName + "님 환영합니다");
-                    Thread.Sleep(1000);
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Database Error!!");
-                    Thread.Sleep(1000);
-                }
+                Console.Clear();
+                Console.WriteLine("\n\n\n\n");
+                Console.WriteLine("\t\t" + memberName + "님 환영합니다");
+                Thread.Sleep(1000);
             }
-            
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Database Error!!");
+                Thread.Sleep(1000);
+            }
+
             conn.Close();
-            
         }
 
         public void deleteMemberInDB(string memberId, string memberName/*, string memberPwd, , string memberBirth, string whichBookRented, string duringRent*/)
@@ -85,7 +82,7 @@ namespace BookManagementDB
             String sql = "select * from member;";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
-           
+
             share.getDisplay().membershipBar();
             while (reader.Read())
             {
@@ -93,13 +90,13 @@ namespace BookManagementDB
                 password = reader["password"].ToString();
                 name = reader["name"].ToString();
                 birth = reader["birth"].ToString();
-                
 
-                Console.WriteLine(String.Format("  "+ memberid + "\t " + password + "\t " + name + "\t\t" + birth));
+
+                Console.WriteLine(String.Format("  " + memberid + "\t " + password + "\t " + name + "\t\t" + birth));
             }
 
             reader.Close();
-            conn.Close();   
+            conn.Close();
         }
 
         public bool IsIdDuplication(string userid)
@@ -116,20 +113,19 @@ namespace BookManagementDB
             {
                 memberid = reader["memberid"].ToString();
                 if (userid == memberid) { duplication = true; }
-            else
-            {
-                duplication = false;
-            }
+                else
+                {
+                    duplication = false;
+                }
 
             }
-            
-            
+
+
             return duplication;
         }
 
-        public int loginUsingDB(string input, string input2)
+        public void loginUsingDB(string input, string input2)
         {
-            int cnt = 0;
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
             conn.Open();
@@ -146,15 +142,23 @@ namespace BookManagementDB
                     if (input2 == password)
                     {
                         Console.Clear();
-                        Console.WriteLine("\n\n\t\t로그인되셨습니다.");
+                        Console.WriteLine("\n\n\t\t로그인되셨습니다."); //로그인 성공! 로그인시 뜨는 화면으로 들어간다
+                        Thread.Sleep(800);
+                        share.getMenu().menuLoginAdmin();
                     }
                     else
-                     cnt++;
+                    {
+                        Console.WriteLine("\n\n\t 비밀번호 오류");
+                        share.getLogin().login(); //다시한번 로그인 창
+                    }
                 }
                 else
-                    cnt++;
+                {
+                    Console.WriteLine("\n\n\t\t아이디가 존재하지 않습니다.");
+                    share.getMenu().mainMenu(); //다시 메인메뉴로 돌아간다
+                }
+
             }
-            return cnt;
         }
     }
 }

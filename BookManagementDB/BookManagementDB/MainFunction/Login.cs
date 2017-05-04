@@ -16,17 +16,11 @@ namespace BookManagementDB
             Console.Clear();
             share.getDisplay().loginDisplay("Member Login");
             Console.SetCursorPosition(22, 6);
-            inputId = Console.ReadLine();
+            inputId = Console.ReadLine(); 
             Console.SetCursorPosition(22, 10);
-            inputPwd = share.getException().inputpwd();
-            int cnt = share.getDataBase().loginUsingDB(inputId, inputPwd);
-            if (cnt == 0) { share.getMenu().menuOnLogin(); }
-            else if (cnt > 0)
-            {
-                Console.WriteLine("\n\n\t\t존재하지 않습니다.");
-                System.Threading.Thread.Sleep(800);
-                share.getMenu().mainMenu();
-            }
+            inputPwd = share.getException().inputpwd(); //패스워드 *표시 하는 예외처리
+             share.getDataBase().loginUsingDB(inputId, inputPwd); 
+            
         }
         public void adminLogin()
         {

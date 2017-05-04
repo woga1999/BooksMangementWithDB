@@ -7,8 +7,9 @@ using System.Threading;
 using MySql.Data.MySqlClient;
 
 namespace BookManagementDB
-{//Book 데이터베이스 이용해 쓰는 기능들
-    class BookDataBase
+{//Book 테이블 이용해 쓰는 기능들
+
+    class BookTable
     {
         private static ShareClass share = ShareClass.getShareClass();
         String strConn;

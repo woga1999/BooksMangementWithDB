@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 namespace BookManagementDB
 {
     class ShareClass
-    { // 싱글톤 하기
+    { // 싱글톤
         private static ShareClass shareclass;
         Login login;
         Display display;
@@ -17,8 +17,8 @@ namespace BookManagementDB
         Member member;
         Menu menu;
         Exception exception;
-        DataBase database;
-        BookDataBase bookdatabase;
+        MemberTable membertable;
+        BookTable booktable;
         private ShareClass()
         {
             login = new Login();
@@ -27,8 +27,8 @@ namespace BookManagementDB
             member = new Member();
             menu = new Menu();
             exception = new Exception();
-            database = new DataBase();
-            bookdatabase = new BookDataBase();
+            membertable = new MemberTable();
+            booktable = new BookTable();
         }
 
         public Login getLogin()
@@ -62,18 +62,18 @@ namespace BookManagementDB
             return display;
         }
 
-        public DataBase getDataBase()
+        public MemberTable getMemberTable()
         {
-            return database;
+            return membertable;
         }
 
         public Exception getException()
         {
             return exception;
         }
-        public BookDataBase getBookDataBase()
+        public BookTable getBookTable()
         {
-            return bookdatabase;
+            return booktable;
         }
     }
 }

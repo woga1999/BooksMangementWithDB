@@ -35,7 +35,7 @@ namespace BookManagementDB
 
             while (true)
             {
-                Console.Write("\t  : ");
+                Console.Write("\t\t : ");
                 number = Console.ReadLine();
                 Regex regex = new Regex(@"^[가-힣a-zA-Z]");
                 Boolean ismatch = regex.IsMatch(number);
@@ -93,16 +93,16 @@ namespace BookManagementDB
             {
                 Console.Write("{0} : ", direct);
                 input = Console.ReadLine();
-                bool IsExistId = share.getDataBase().IsIdDuplication(input);
+                bool IsExistedId = share.getDataBase().IsIdDuplication(input);
                 Regex regex = new Regex(@"^[a-zA-z0-9]{6,10}");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
-                    if (IsExistId == true) { Console.WriteLine("\t\t존재하는 ID입니다."); }
-                    else if (IsExistId == false) { break; }
+                    if (IsExistedId == true) { Console.WriteLine("\t\t존재하는 ID입니다."); }
+                    else if (IsExistedId == false) { break; }
                 }
                 else if(input == "back") { Console.Clear();  share.getMenu().mainMenu(); }
-                else if (!ismatch) { Console.WriteLine("아이디 설정은 6~10자리 사이 숫자와영어 조합만 가능합니다."); }
+                else if (!ismatch) { Console.WriteLine("아이디 설정은 6~10자리 사이 숫자나 영어로 저장 가능합니다."); }
             }
             return input;
         }
