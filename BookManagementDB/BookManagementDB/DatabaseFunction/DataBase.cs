@@ -13,7 +13,10 @@ namespace BookManagementDB
         private static ShareClass share = ShareClass.getShareClass();
         String strConn;
         MySqlConnection conn;
-
+        string memberid = null;
+        string password = null;
+        string name = null;
+        string birth = null;
         public void addMemberInDB(string memberId, string memberPwd, string memberName, string memberBirth)
         {
                         
@@ -74,34 +77,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public void alldelete()
-        {
-
-            strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
-            conn = new MySqlConnection(strConn); //MySQL 연결
-
-            conn.Open();
-
-            string sql = "delete from member; ";
-            MySqlCommand cmd = new MySqlCommand(sql, conn); // command
-            if (cmd.ExecuteNonQuery() == 1)
-            {
-                Console.Clear();
-                Console.WriteLine("\n\n\n\n");
-                Console.WriteLine("                            프로그램 종료합니다 ");
-                Thread.Sleep(1000);
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Database Error!!");
-                Thread.Sleep(1000);
-            }
-
-            conn.Close();
-        }
-
-        public void searchOfDB()
+        public void memberAllSearchOfDB()
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
@@ -109,10 +85,7 @@ namespace BookManagementDB
             String sql = "select * from member;";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
-            string memberid = share.getMember().membervo.id;
-            string password = share.getMember().membervo.pwd;
-            string name = share.getMember().membervo.name;
-            string birth = share.getMember().membervo.birthday;
+           
             share.getDisplay().membershipBar();
             while (reader.Read())
             {
@@ -120,9 +93,8 @@ namespace BookManagementDB
                 password = reader["password"].ToString();
                 name = reader["name"].ToString();
                 birth = reader["birth"].ToString();
+                
 
-                //MemberVO vo = new MemberVO(memberid, password, name);
-                //Console.WriteLine("\t\t" + vo.toString());
                 Console.WriteLine(String.Format("  "+ memberid + "\t " + password + "\t " + name + "\t\t" + birth));
             }
 
@@ -153,6 +125,36 @@ namespace BookManagementDB
             
             
             return duplication;
+        }
+
+        public int loginUsingDB(string input, string input2)
+        {
+            int cnt = 0;
+            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
+            conn = new MySqlConnection(strConn);  // conncet MySQL
+            conn.Open();
+            String sql = "select * from member;";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                memberid = reader["memberid"].ToString();
+                password = reader["password"].ToString();
+                if (input == memberid)
+                {
+                    if (input2 == password)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("\n\n\t\t로그인되셨습니다.");
+                    }
+                    else
+                     cnt++;
+                }
+                else
+                    cnt++;
+            }
+            return cnt;
         }
     }
 }

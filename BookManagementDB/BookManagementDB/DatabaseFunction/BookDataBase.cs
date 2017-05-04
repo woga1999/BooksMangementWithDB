@@ -65,6 +65,34 @@ namespace BookManagementDB
             conn.Close();
         }
 
+        public void booksAllSearchOfDB()
+        {
+            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
+            conn = new MySqlConnection(strConn);  // conncet MySQL
+            conn.Open();
+            String sql = "select * from book;";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            string isrent = null;
+            string bookname = null;
+            string author = null;
+            string price = null;
+            string volume = null;
+            share.getDisplay().bookBar();
+            while (reader.Read())
+            {
+                bookname = reader["bookname"].ToString();
+                author = reader["author"].ToString();
+                price = reader["price"].ToString();
+                volume = reader["volume"].ToString();
+                isrent = reader["isrent"].ToString();
 
+
+                Console.WriteLine(String.Format("  " + bookname + "\t " + author + "\t " + price + "\t\t" + volume + "\t" + isrent));
+            }
+
+            reader.Close();
+            conn.Close();
+        }
     }
 }

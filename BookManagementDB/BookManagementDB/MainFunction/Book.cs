@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using MySql.Data.MySqlClient;
 
 namespace BookManagementDB
 {//도서와 관련된 기능 메서드들을 모아놓은 클래스
@@ -13,7 +12,7 @@ namespace BookManagementDB
         private static ShareClass share = ShareClass.getShareClass();
         public BookVO bookvo = new BookVO(null, null, null, null, false);
         string input = null;
-        //public List<BookVO> bookList = new List<BookVO>();
+
         public void addBook(string message) //관리자 모드일 때 등록가능
         {
             Console.WriteLine("\t\t - {0} -          ", message);
@@ -26,7 +25,7 @@ namespace BookManagementDB
             
             bookvo.volume = share.getException().onlyNum("Volume");
 
-            //bookList.Add(new BookVO(bookvo.bookName, bookvo.author, bookvo.price, bookvo.volume, false));
+            new BookVO(bookvo.bookName, bookvo.author, bookvo.price, bookvo.volume, false);
             share.getBookDataBase().addBookInDB(bookvo.bookName, bookvo.author, bookvo.price, bookvo.volume, "대여 가능");
 
         }

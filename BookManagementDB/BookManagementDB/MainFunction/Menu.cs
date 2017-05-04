@@ -15,10 +15,11 @@ namespace BookManagementDB
 
         public void mainMenu()
         {
+            Console.Clear();
             share.getDisplay().mainMenuDisplay();
             input = share.getException().exceptKey("1", "2", "3","/OpenAdmin");
 
-            if(input == "1") { Console.Clear(); share.getLogin().login(); } //등록한 정보가 있으면 로그인 창으로 
+            if(input == "1") { Console.Clear(); share.getBookDataBase().booksAllSearchOfDB();  share.getLogin().login(); } //등록한 정보가 있으면 로그인 창으로 
             else if(input =="2") { Console.Clear();  share.getMember().addMember("Membership Join"); mainMenu(); } //회원 등록하기
             else if (input == "3") { Console.Clear(); Console.WriteLine("                            프로그램 종료합니다 ");  }
             else if(input == "/OpenAdmin") { Console.Clear(); share.getLogin().adminLogin(); } //숨겨진 관리자 모드 오직 관리자만이 아는 명령어
@@ -26,6 +27,7 @@ namespace BookManagementDB
 
         public void menuLoginAdmin()
         {
+            Console.Clear();
             share.getDisplay().administrationModeDisplay();
             input = share.getException().exceptSwitchEntry(1, 6);
 
@@ -44,14 +46,17 @@ namespace BookManagementDB
                     break;
                 case "4": //책 목록 보며 삭제할 책 고르기
                     share.getBook().deleteBook();
+                    Console.Clear();
                     menuLoginAdmin();
                     break;
                 case "5": //책 목록 보며 수정할 책 고르기
                     share.getBook().modifyBook();
+                    Console.Clear();
                     menuLoginAdmin();
                     break;
                 case "6": //나가기 
                     Console.WriteLine("                        관리자모드 종료합니다 ");
+                    Console.Clear();
                     mainMenu();
                     break;
             }
@@ -59,6 +64,7 @@ namespace BookManagementDB
 
         public void menuOnLogin()
         {
+            Console.Clear();
             share.getDisplay().LoginMemberDisplay();
             input = share.getException().exceptSwitchEntry(1, 5);
 
@@ -87,6 +93,7 @@ namespace BookManagementDB
 
         public void searchAboutBook()
         {
+            Console.Clear();
             share.getDisplay().bookSearchDisplay();
             input = share.getException().exceptSwitchEntry(1, 5);
 
@@ -111,6 +118,7 @@ namespace BookManagementDB
         }
         public void searchAboutMembers()
         {
+            Console.Clear();
             share.getDisplay().memberSearchDisplay();
             input = share.getException().exceptSwitchEntry(1, 4);
 

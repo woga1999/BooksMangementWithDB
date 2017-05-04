@@ -101,7 +101,7 @@ namespace BookManagementDB
                     if (IsExistId == true) { Console.WriteLine("\t\t존재하는 ID입니다."); }
                     else if (IsExistId == false) { break; }
                 }
-                else if(input == "back") { share.getMenu().mainMenu(); }
+                else if(input == "back") { Console.Clear();  share.getMenu().mainMenu(); }
                 else if (!ismatch) { Console.WriteLine("아이디 설정은 6~10자리 사이 숫자와영어 조합만 가능합니다."); }
             }
             return input;

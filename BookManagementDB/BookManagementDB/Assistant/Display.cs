@@ -19,13 +19,13 @@ namespace BookManagementDB
 
         public void administrationModeDisplay()
         {
-            Console.WriteLine("\n\n\t\t1. Members Search");
+            Console.WriteLine("\n\n\t1. Members Search");
             Console.WriteLine("\n\t2. Member Delete");
             Console.WriteLine("\n\t3. Add Books");
             Console.WriteLine("\n\t4. Delete Books");
             Console.WriteLine("\n\t5. Modify Books");
             Console.WriteLine("\n\t6. Exit");
-            Console.WriteLine("\n\t\t ☞ : ");
+            Console.WriteLine();
         }
 
         public void LoginMemberDisplay()
@@ -33,24 +33,25 @@ namespace BookManagementDB
             Console.WriteLine("\n\n\t\t1. Want to Rent Book");
             Console.WriteLine("\n\t\t2. Return Book");
             Console.WriteLine("\n\t\t3. Modify MyInfo");
-            Console.WriteLine("\n\t4. Confirm Which Books are rented and How long can rent");
-            Console.WriteLine("\n\t5. Searching Book");
-            Console.WriteLine("\n\t6. Logout");
-            Console.WriteLine("\n\t\t ☞ : ");
+            Console.WriteLine("\n\t\t4. Confirm Which Books are rented and How long can rent");
+            Console.WriteLine("\n\t\t5. Searching Book");
+            Console.WriteLine("\n\t\t6. Logout");
+            Console.WriteLine();
         }
 
-        public void loginDisplay()
+        public void loginDisplay(string message)
         {
+            Console.WriteLine("\n         {0}                    \n", message);
             Console.WriteLine();
-            Console.WriteLine("      +------------------------------------+");
-            Console.WriteLine("      |                                    |");
-            Console.WriteLine("      | Login    :                         |");
-            Console.WriteLine("      |                                    |");
-            Console.WriteLine("      +------------------------------------+");
-            Console.WriteLine("      |                                    |");
-            Console.WriteLine("      | Password :                         |");
-            Console.WriteLine("      |                                    |");
-            Console.WriteLine("      +------------------------------------+");
+            Console.WriteLine("         +------------------------------------+");
+            Console.WriteLine("         |                                    |");
+            Console.WriteLine("         | Login    :                         |");
+            Console.WriteLine("         |                                    |");
+            Console.WriteLine("         +------------------------------------+");
+            Console.WriteLine("         |                                    |");
+            Console.WriteLine("         | Password :                         |");
+            Console.WriteLine("         |                                    |");
+            Console.WriteLine("         +------------------------------------+");
             Console.WriteLine();
         }
 
@@ -65,7 +66,7 @@ namespace BookManagementDB
         public void bookBar()
         {
             Console.WriteLine();
-            Console.WriteLine(String.Format("  Title\t\tAuthor\t\tPrice\t\tVolumn"));
+            Console.WriteLine(String.Format("  Title\t\tAuthor\t\tPrice\t\tVolumn\t\tIsrent"));
             Console.WriteLine("==========================================================================");
             Console.WriteLine();
 
@@ -73,7 +74,7 @@ namespace BookManagementDB
         public void status(string message)
         {
             Console.WriteLine("\t\t -{0}-          ", message);
-            Console.WriteLine("                                       Wanna back put <back>");
+            Console.WriteLine("                                       Wanna back put <back> in ID");
             Console.WriteLine("");
         }
         public void bookSearchDisplay()
