@@ -11,6 +11,7 @@ namespace BookManagementDB
     class Book
     {
         private static ShareClass share = ShareClass.getShareClass();
+        public BookVO bookvo = new BookVO(null, null, null, null, false);
         public void addBook()
         {
 

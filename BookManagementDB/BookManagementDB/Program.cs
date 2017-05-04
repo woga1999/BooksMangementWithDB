@@ -10,8 +10,10 @@ namespace BookManagementDB
     {
         static void Main(string[] args)
         {
-            ShareClass share = ShareClass.getShareClass();
-            share.getMember().addMember();
+            //ShareClass share = ShareClass.getShareClass();
+            //share.getMember().addMember();
+            Menu menu = new Menu();
+            menu.mainMenu();
         }
     }
 }

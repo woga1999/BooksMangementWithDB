@@ -16,17 +16,17 @@ namespace BookManagementDB
         public void mainMenu()
         {
             share.getDisplay().mainMenuDisplay();
-            input = share.getException().exceptKey("1", "2", "OpenAdmin");
+            input = share.getException().exceptKey("1", "2", "/OpenAdmin");
 
-            if(input == "1") { share.getLogin().login(); }
-            else if(input =="2") { share.getMember().addMember(); }
-            else if(input == "OpenAdmin") { share.getLogin().adminLogin(); }
+            if(input == "1") { Console.Clear(); share.getLogin().login(); }
+            else if(input =="2") { Console.Clear();  share.getMember().addMember(); }
+            else if(input == "/OpenAdmin") { Console.Clear(); share.getLogin().adminLogin(); }
         }
 
         public void menuLoginAdmin()
         {
             share.getDisplay().administrationModeDisplay();
-            input = share.getException().exceptSwitchEntry(1, 4);
+            input = share.getException().exceptSwitchEntry(1, 5);
 
             switch (input)
             {
@@ -37,6 +37,8 @@ namespace BookManagementDB
                 case "3":
                     break;
                 case "4":
+                    break;
+                case "5":
                     break;
             }
         }

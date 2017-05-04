@@ -9,7 +9,7 @@ namespace BookManagementDB
     class MemberVO
     {
         private string memberName;
-        private string memberNum;
+        //private string memberNum;
         private string memberBirth;
         private string identiification;
         private string password;

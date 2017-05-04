@@ -54,30 +54,70 @@ namespace BookManagementDB
                 }
             }
             return number;
-
         }
+
         public string inputpwd()
         {
-            input = Console.ReadLine();
+            StringBuilder stringbuilder = new StringBuilder();
+            while (true)
+            {
+                ConsoleKeyInfo cki = Console.ReadKey(true);
+                if (cki.Key == ConsoleKey.Enter)
+                {
+                    Console.WriteLine();
+                    break;
+                }
 
-            return input;
+                if (cki.Key == ConsoleKey.Backspace)
+                {
+                    if (stringbuilder.Length > 0)
+                    {
+                        Console.Write("\b\0\b");
+                        stringbuilder.Length--;
+                    }
+
+                    continue;
+                }
+
+                Console.Write('*');
+                stringbuilder.Append(cki.KeyChar);
+            }
+
+            return stringbuilder.ToString();
         }
+
         public string inputId(string direct)
         {
             while (true)
             {
                 Console.Write("{0} : ", direct);
                 input = Console.ReadLine();
+                bool IsExistId = IsIdDuplication(input);
                 Regex regex = new Regex(@"^[a-zA-z0-9]{6,10}");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
-                    break;
+                    if (IsExistId == true) { Console.WriteLine("존재하는 ID입니다."); }
+                    else if (IsExistId == false) { break; }
                 }
                 else if(input == "back") { share.getMenu().mainMenu(); }
                 else if (!ismatch) { Console.WriteLine("아이디 설정은 6~10자리 사이 숫자와영어 조합만 가능합니다."); }
             }
             return input;
+        }
+
+        public bool IsIdDuplication(string userid)
+        {
+            bool duplication = false;
+            for(int index = 0; index < share.getMember().memberList.Count; index++)
+            {
+                if (userid == share.getMember().memberList[index].id) { duplication = true; }
+                else
+                {
+                    duplication = false;
+                }
+            }
+            return duplication;
         }
     }
     

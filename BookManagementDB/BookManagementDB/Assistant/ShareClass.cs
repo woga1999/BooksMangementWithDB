@@ -17,7 +17,7 @@ namespace BookManagementDB
         Member member;
         Menu menu;
         Exception exception;
-
+        DataBase database;
         private ShareClass()
         {
             login = new Login();
@@ -26,6 +26,7 @@ namespace BookManagementDB
             member = new Member();
             menu = new Menu();
             exception = new Exception();
+            database = new DataBase();
         }
 
         public Login getLogin()
@@ -44,6 +45,11 @@ namespace BookManagementDB
             return member;
         }
 
+        public Book getBook()
+        {
+            return book;
+        }
+
         public Menu getMenu()
         {
             return menu;
@@ -52,6 +58,11 @@ namespace BookManagementDB
         public Display getDisplay()
         {
             return display;
+        }
+
+        public DataBase getDataBase()
+        {
+            return database;
         }
 
         public Exception getException()
