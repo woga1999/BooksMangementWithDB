@@ -19,7 +19,7 @@ namespace BookManagementDB
             inputId = Console.ReadLine(); 
             Console.SetCursorPosition(22, 10);
             inputPwd = share.getException().inputpwd(); //패스워드 *표시 하는 예외처리
-             share.getDataBase().loginUsingDB(inputId, inputPwd); 
+             share.getMemberTable().loginUsingDB(inputId, inputPwd); 
             
         }
         public void adminLogin()

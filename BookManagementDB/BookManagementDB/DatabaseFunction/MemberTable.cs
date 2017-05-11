@@ -19,6 +19,7 @@ namespace BookManagementDB
         string password = null;
         string name = null;
         string birth = null;
+        string loginId = null;
         public void addMemberInDB(string memberId, string memberPwd, string memberName, string memberBirth)
         {
 
@@ -47,7 +48,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public void deleteMemberInDB(string memberId, string memberName/*, string memberPwd, , string memberBirth, string whichBookRented, string duringRent*/)
+        public void deleteMemberInDB(string memberId, string memberName, string message)
         {
 
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
@@ -61,7 +62,7 @@ namespace BookManagementDB
             {
                 Console.Clear();
                 Console.WriteLine("\n\n\n\n");
-                Console.WriteLine("\t\t" + memberName + "님 정보가 삭제되었습니다.");
+                Console.WriteLine("\t\t" + memberName + message);
                 Thread.Sleep(1000);
             }
             else
@@ -92,7 +93,7 @@ namespace BookManagementDB
                 birth = reader["birth"].ToString();
 
 
-                Console.WriteLine(String.Format("  " + memberid + "\t " + password + "\t " + name + "\t\t" + birth));
+                Console.WriteLine(String.Format("  " + memberid + "\t " + password + "\t\t" + name + "\t\t" + birth));
             }
 
             reader.Close();
@@ -107,7 +108,6 @@ namespace BookManagementDB
             String sql = "select * from member;";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
-            string memberid = share.getMember().membervo.id;
             bool duplication = false;
             while (reader.Read())
             {
@@ -119,11 +119,48 @@ namespace BookManagementDB
                 }
 
             }
-
+            reader.Close();
+            conn.Close();
 
             return duplication;
         }
 
+        public bool checkIdOfPwd(string userid, string pwd)
+        {
+            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
+            conn = new MySqlConnection(strConn);  // conncet MySQL
+            bool isMatchPwd = true;
+            conn.Open();
+            String sql = "select * from member;";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                memberid = reader["memberid"].ToString();
+                password = reader["password"].ToString();
+                if (memberid == userid)
+                {
+                    if (password == pwd)
+                    {
+                        Console.WriteLine("\t 확인되었습니다.");
+                        Thread.Sleep(800);
+                        isMatchPwd = true;
+                    }
+                    else if (password != pwd)
+                    {
+                        Console.WriteLine("\t 비밀번호가 맞지 않습니다.");
+                        Thread.Sleep(800);
+                        isMatchPwd = false;
+                    }
+                }
+                
+            }
+
+            reader.Close();
+            conn.Close();
+
+            return isMatchPwd;
+        }
         public void loginUsingDB(string input, string input2)
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
@@ -137,28 +174,39 @@ namespace BookManagementDB
             {
                 memberid = reader["memberid"].ToString();
                 password = reader["password"].ToString();
+                name = reader["name"].ToString();
                 if (input == memberid)
                 {
                     if (input2 == password)
                     {
                         Console.Clear();
-                        Console.WriteLine("\n\n\t\t로그인되셨습니다."); //로그인 성공! 로그인시 뜨는 화면으로 들어간다
+                        staticMemberID(memberid);
+                        Console.WriteLine("\n\n\t\t"+name+"님 로그인되셨습니다."); //로그인 성공! 로그인시 뜨는 화면으로 들어간다
                         Thread.Sleep(800);
-                        share.getMenu().menuLoginAdmin();
+                        share.getMenu().menuOnLogin();
                     }
                     else
                     {
                         Console.WriteLine("\n\n\t 비밀번호 오류");
+                        Thread.Sleep(800);
                         share.getLogin().login(); //다시한번 로그인 창
                     }
                 }
                 else
                 {
                     Console.WriteLine("\n\n\t\t아이디가 존재하지 않습니다.");
+                    Thread.Sleep(800);
                     share.getMenu().mainMenu(); //다시 메인메뉴로 돌아간다
                 }
 
             }
+            reader.Close();
+            conn.Close();
         }
+        internal void staticMemberID(string userId)
+        {
+            share.setLoginId(userId);
+        }
+        
     }
 }

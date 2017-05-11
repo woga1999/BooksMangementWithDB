@@ -86,6 +86,20 @@ namespace BookManagementDB
 
             return stringbuilder.ToString();
         }
+        public string matchpw()
+        {
+            bool isMatch = true;
+            while (true)
+            {
+                Console.WriteLine("\t\t:");
+                input = inputpwd();
+                isMatch = share.getMemberTable().checkIdOfPwd(share.getLoginId(), input);
+                if (isMatch.Equals(true)) { break; }
+                else if(isMatch.Equals(false)) { continue; }
+            }
+
+            return input;
+        }
 
         public string inputId(string direct) //back이 들어있는 예외처리함수
         {
@@ -93,7 +107,7 @@ namespace BookManagementDB
             {
                 Console.Write("{0} : ", direct);
                 input = Console.ReadLine();
-                bool IsExistedId = share.getDataBase().IsIdDuplication(input);
+                bool IsExistedId = share.getMemberTable().IsIdDuplication(input);
                 Regex regex = new Regex(@"^[a-zA-z0-9]{6,10}");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)

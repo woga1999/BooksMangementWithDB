@@ -22,57 +22,37 @@ namespace BookManagementDB
             membervo.pwd = Console.ReadLine(); //회원정보 등록할 때는 비밀번호가 보이게 한다.
             Console.Write("\t Name: ");
             membervo.name = Console.ReadLine();
-            Console.Write("\t Birth: ");
+            Console.Write("\t Birth(Only 6digits): ");
             membervo.birthday = Console.ReadLine();
 
             new MemberVO(membervo.id, membervo.pwd, membervo.name, membervo.birthday);
-            share.getDataBase().addMemberInDB(membervo.id, membervo.pwd, membervo.name, membervo.birthday); //데이터베이스에 정보 추가
+            share.getMemberTable().addMemberInDB(membervo.id, membervo.pwd, membervo.name, membervo.birthday); //데이터베이스에 정보 추가
 
         }
 
         public void deleteMember()
         {
-            Console.WriteLine("\n\t Put Member's Name and Id ");
+            Console.Clear();
+            share.getMemberTable().memberAllSearchOfDB();
+            Console.WriteLine("\n\t Put to delete Member's Name and Id ");
+            string input2 = share.getException().inputId("\t ID");
             Console.Write("\t Member Name: ");
             input = Console.ReadLine();
-            string input2 = share.getException().inputId("\t ID");
 
-            if (input == membervo.name)
-            {
-                if (input2 == membervo.id)
-                {
-                            share.getDataBase().deleteMemberInDB(membervo.id,membervo.name);
-                            //int removeIndex = index;
-                            //memberList.RemoveAt(removeIndex);
-                            //share.getDataBase().deleteMemberInDB(memberList[removeIndex].id, memberList[removeIndex].pwd, memberList[removeIndex].name, memberList[removeIndex].birthday, memberList[removeIndex].rentbook, memberList[removeIndex].duringrent);
-                }
-                else
-                    Console.WriteLine("Not exist Member");
-            }
-            else
-                Console.WriteLine("Not exist Name.");
+            share.getMemberTable().deleteMemberInDB(input2, input, "님 정보가 삭제되었습니다.");
+                           
 
             //존재하지 않으니 전 메뉴 모음으로 돌아가기, 삭제했으니 전 메뉴 모음으로 돌아가기
         }
 
         public void modifyMember() //회원이 로그인해서 회원수정하고 싶을 때
         {
-            Console.WriteLine("\n\t If you want to modify info that you put 'ID' and 'PassWord'! ");
-            input = share.getException().inputId("\t ID");
+            Console.WriteLine("\n\t If you want to modify info that you put 'PassWord'! ");
             Console.Write("\t Password: ");
-            string input2 = share.getException().inputpwd();
-            if (input == membervo.id)
-            {
-                if (input == membervo.pwd)
-                {
-                    share.getDataBase().deleteMemberInDB(membervo.id, membervo.name);
-                    addMember("Membership Modify");
-                }
-                else
-                    Console.WriteLine("Not exist Member");
-            }
-            else
-                Console.WriteLine("Not exist ID");
+            input = share.getException().matchpw();
+
+            share.getMemberTable().deleteMemberInDB(share.getLoginId(), input, "님");
+            addMember("Membership Modify");
         }
         public void searchMember()
         {

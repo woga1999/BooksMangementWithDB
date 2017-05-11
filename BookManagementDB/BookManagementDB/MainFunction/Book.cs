@@ -17,6 +17,7 @@ namespace BookManagementDB
         {
             Console.WriteLine("\t\t - {0} -          ", message);
             Console.WriteLine(" ");
+            string no = Console.ReadLine();
             bookvo.bookName = share.getException().notEnter("Book Title");
             
             bookvo.author = share.getException().notEnter("Author"); //회원정보 등록할 때는 보이게 한다.
@@ -25,8 +26,7 @@ namespace BookManagementDB
             
             bookvo.volume = share.getException().onlyNum("Volume");
 
-            new BookVO(bookvo.bookName, bookvo.author, bookvo.price, bookvo.volume, false);
-            share.getBookTable().addBookInDB(bookvo.bookName, bookvo.author, bookvo.price, bookvo.volume, "대여 가능");
+            share.getBookTable().addBookInDB(no, bookvo.bookName, bookvo.author, bookvo.price);
 
         }
 

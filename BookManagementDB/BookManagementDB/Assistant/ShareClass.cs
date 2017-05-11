@@ -19,6 +19,8 @@ namespace BookManagementDB
         Exception exception;
         MemberTable membertable;
         BookTable booktable;
+        private static string loginID = null;
+        private List<string> loginId = new List<string>();
         private ShareClass()
         {
             login = new Login();
@@ -30,16 +32,27 @@ namespace BookManagementDB
             membertable = new MemberTable();
             booktable = new BookTable();
         }
-
-        public Login getLogin()
+        
+       
+        internal void setLoginId(string userid)
         {
-            return login;
+            loginID = userid;
         }
 
+        internal string getLoginId()
+        {
+            return loginID;
+        }
         public static ShareClass getShareClass()
         {
             if (shareclass == null) shareclass = new ShareClass();
             return shareclass;
+        }
+        
+
+        public Login getLogin()
+        {
+            return login;
         }
 
         public Member getMember()

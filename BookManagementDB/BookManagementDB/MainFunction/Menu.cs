@@ -20,8 +20,8 @@ namespace BookManagementDB
             input = share.getException().exceptKey("1", "2", "3","/OpenAdmin");
 
             if(input == "1")   //등록한 정보가 있으면 로그인 창으로 
-            { Console.Clear();
-                share.getBookDataBase().booksAllSearchOfDB();
+            {
+                Console.Clear();
                 share.getLogin().login();
             } 
             else if(input =="2") //회원 등록하기
@@ -69,6 +69,7 @@ namespace BookManagementDB
                     break;
                 case "6": //나가기 
                     Console.WriteLine("                        관리자모드 종료합니다 ");
+                    Thread.Sleep(800);
                     Console.Clear();
                     mainMenu();
                     break;
@@ -79,7 +80,7 @@ namespace BookManagementDB
         {
             Console.Clear();
             share.getDisplay().LoginMemberDisplay();
-            input = share.getException().exceptSwitchEntry(1, 5);
+            input = share.getException().exceptSwitchEntry(1, 6);
 
             switch (input)
             {
@@ -99,7 +100,8 @@ namespace BookManagementDB
                     menuOnLogin();
                     break;
                 case "6":
-                    mainMenu(); //메인메뉴로 돌아가기 : 로그아웃했으니
+                    Console.WriteLine("로그아웃 합니다."); //메인메뉴로 돌아가기 : 로그아웃했으니
+                    Thread.Sleep(800);
                     break;
             }
         }
