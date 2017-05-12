@@ -35,20 +35,30 @@ namespace BookManagementDB
 
             while (true)
             {
-                Console.Write("\t\t : ");
+                Console.Write("\n\t\t : ");
                 number = Console.ReadLine();
                 Regex regex = new Regex(@"^[가-힣a-zA-Z]");
                 Boolean ismatch = regex.IsMatch(number);
+                Regex regex2 = new Regex(@"^[0-9]*$");
+                Boolean ismatch2 = regex2.IsMatch(number);
                 if (number == "")
                 {
                     continue;
                 }
-                else if (ismatch) { continue; }
-                else if (Int32.Parse(number) >= first && Int32.Parse(number) <= last)
-                {
-                    break;
+                else if (ismatch)
+                {continue;
                 }
-
+                else if (ismatch2)
+                {
+                    if (Int32.Parse(number) >= first && Int32.Parse(number) <= last)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
                 else
                 {
                     continue;
@@ -91,7 +101,6 @@ namespace BookManagementDB
             bool isMatch = true;
             while (true)
             {
-                Console.WriteLine("\t\t:");
                 input = inputpwd();
                 isMatch = share.getMemberTable().checkIdOfPwd(share.getLoginId(), input);
                 if (isMatch.Equals(true)) { break; }
@@ -100,7 +109,7 @@ namespace BookManagementDB
 
             return input;
         }
-
+        
         public string inputId(string direct) //back이 들어있는 예외처리함수
         {
             while (true)
@@ -117,6 +126,30 @@ namespace BookManagementDB
                 }
                 else if(input == "back") { Console.Clear();  share.getMenu().mainMenu(); }
                 else if (!ismatch) { Console.WriteLine("아이디 설정은 6~10자리 사이 숫자나 영어로 저장 가능합니다."); }
+            }
+            return input;
+        }
+        public string inputIdWhenDelete(string direct) //back이 들어있는 예외처리함수
+        {
+            while (true)
+            {
+                Console.Write("{0} : ", direct);
+                input = Console.ReadLine();
+                bool IsExistedId = share.getMemberTable().IsIdDuplication(input);
+                Regex regex = new Regex(@"^[a-zA-z0-9]{6,10}");
+                Boolean ismatch = regex.IsMatch(input);
+                if (ismatch)
+                {
+                    if (IsExistedId == true) { break; }
+                    else if (IsExistedId == false)
+                    {
+                        Console.WriteLine("\t\t존재하지 않는 ID입니다. 삭제 할 아이디가 없습니다.");
+                        Console.WriteLine("\t\t목록을 참고하세요.                       <back> : 뒤로가기");
+                    }
+                }
+                else if (input == "back") { Console.Clear(); share.getMenu().menuLoginAdmin(); }
+                else if (!ismatch) { Console.WriteLine("올바른 아이디 형식이 아닙니다."); }
+                else { continue; }
             }
             return input;
         }
@@ -144,8 +177,6 @@ namespace BookManagementDB
             {
                 Console.Write("\t {0} : ", message);
                 input = Console.ReadLine();
-                //Regex regex = new Regex(@"^[가-힣a-zA-Z]");
-                //Boolean ismatch = regex.IsMatch(input);
                 if (input == "")
                 {
                     continue;

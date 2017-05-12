@@ -15,14 +15,14 @@ namespace BookManagementDB
         String strConn;
         MySqlConnection conn;
 
-        public void addBookInDB(string no, string bookTitle, string author, string price)
+        public void addBookInDB(string no, string bookTitle, string author, string price, string amount)
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn); //MySQL 연결
 
             conn.Open();
 
-            string sql = "insert into book values('"+no+"','" + bookTitle + "', '" + author + "', '" + price + "');";
+            string sql = "insert into book values('"+no+"','" + bookTitle + "', '" + author + "', '" + price + "', '" + amount + "');";
             MySqlCommand cmd = new MySqlCommand(sql, conn); // command
             if (cmd.ExecuteNonQuery() == 1)
             {

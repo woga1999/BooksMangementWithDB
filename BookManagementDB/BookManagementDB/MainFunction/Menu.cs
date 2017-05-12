@@ -32,10 +32,18 @@ namespace BookManagementDB
             } 
             else if (input == "3") //종료
             {
-                Console.Clear();
+                Console.WriteLine(test("memberid", "qkr"));
                 Console.WriteLine("                            프로그램 종료합니다 ");
             }
-            else if(input == "/OpenAdmin") {  share.getLogin().adminLogin(); } //숨겨진 관리자 모드 오직 관리자만이 아는 명령어
+            else if(input == "/OpenAdmin")
+            {
+                share.getLogin().adminLogin();
+            } //숨겨진 관리자 모드 오직 관리자만이 아는 명령어
+        }
+        public string test(string num, string b)
+        {
+            string input = "select * from member where " + num + " like '" + b + "%" + "';";
+            return input;
         }
 
         public void menuLoginAdmin()
@@ -49,7 +57,7 @@ namespace BookManagementDB
                 case "1": //등록한 회원 정보들을 검색해서 출력 아니면 전체출력
                     searchAboutMembers();
                     break;
-                case "2":
+                case "2": //회원삭제
                     share.getMember().deleteMember();
                     menuLoginAdmin();
                     break;
@@ -140,13 +148,13 @@ namespace BookManagementDB
             switch (input)
             {
                 case "1": //멤버 전체 출력
-                    searchAboutMembers();
+                    share.getMemberTable().memberAllSearchOfDB();
                     break;
                 case "2": //멤버 아이디 검색
-                    searchAboutMembers();
+                    share.getMember().searchMembers("memberid");
                     break;
                 case "3": //멤버 이름으로 검색
-                    searchAboutMembers();
+                    share.getMember().searchMembers("name");
                     break;
                 case "4": //관리인 로그인 창으로 
                     menuLoginAdmin();

@@ -51,6 +51,7 @@
     <Compile Include="MainFunction\Book.cs" />
     <Compile Include="MainFunction\RentAndReturnBook.cs" />
     <Compile Include="DatabaseFunction\MemberTable.cs" />
+    <Compile Include="RentTable.cs" />
     <Compile Include="VO\BookVO.cs" />
     <Compile Include="Assistant\Display.cs" />
     <Compile Include="MainFunction\Exception.cs" />

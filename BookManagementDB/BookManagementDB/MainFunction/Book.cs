@@ -18,15 +18,15 @@ namespace BookManagementDB
             Console.WriteLine("\t\t - {0} -          ", message);
             Console.WriteLine(" ");
             string no = Console.ReadLine();
-            bookvo.bookName = share.getException().notEnter("Book Title");
+            string bookName = share.getException().notEnter("Book Title");
             
-            bookvo.author = share.getException().notEnter("Author"); //회원정보 등록할 때는 보이게 한다.
+            string author = share.getException().notEnter("Author"); //회원정보 등록할 때는 보이게 한다.
 
-            bookvo.price = share.getException().onlyNum("Price");
+            string price = share.getException().onlyNum("Price");
             
-            bookvo.volume = share.getException().onlyNum("Volume");
+            string amount = share.getException().onlyNum("Amount");
 
-            share.getBookTable().addBookInDB(no, bookvo.bookName, bookvo.author, bookvo.price);
+            share.getBookTable().addBookInDB(no, bookName, author, price, amount);
 
         }
 

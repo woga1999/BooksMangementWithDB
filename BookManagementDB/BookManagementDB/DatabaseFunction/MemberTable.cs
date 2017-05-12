@@ -11,7 +11,7 @@ namespace BookManagementDB
 
     class MemberTable
     {
-        
+
         private static ShareClass share = ShareClass.getShareClass();
         String strConn;
         MySqlConnection conn;
@@ -19,7 +19,6 @@ namespace BookManagementDB
         string password = null;
         string name = null;
         string birth = null;
-        string loginId = null;
         public void addMemberInDB(string memberId, string memberPwd, string memberName, string memberBirth)
         {
 
@@ -48,7 +47,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public void deleteMemberInDB(string memberId, string memberName, string message)
+        public void deleteMemberInDB(string memberId, string message)
         {
 
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
@@ -62,7 +61,7 @@ namespace BookManagementDB
             {
                 Console.Clear();
                 Console.WriteLine("\n\n\n\n");
-                Console.WriteLine("\t\t" + memberName + message);
+                Console.WriteLine("\t\t"  + message);
                 Thread.Sleep(1000);
             }
             else
@@ -153,7 +152,7 @@ namespace BookManagementDB
                         isMatchPwd = false;
                     }
                 }
-                
+
             }
 
             reader.Close();
@@ -161,6 +160,7 @@ namespace BookManagementDB
 
             return isMatchPwd;
         }
+
         public void loginUsingDB(string input, string input2)
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
@@ -181,7 +181,7 @@ namespace BookManagementDB
                     {
                         Console.Clear();
                         staticMemberID(memberid);
-                        Console.WriteLine("\n\n\t\t"+name+"님 로그인되셨습니다."); //로그인 성공! 로그인시 뜨는 화면으로 들어간다
+                        Console.WriteLine("\n\n\t\t" + name + "님 로그인되셨습니다."); //로그인 성공! 로그인시 뜨는 화면으로 들어간다
                         Thread.Sleep(800);
                         share.getMenu().menuOnLogin();
                     }
@@ -203,10 +203,73 @@ namespace BookManagementDB
             reader.Close();
             conn.Close();
         }
+
         internal void staticMemberID(string userId)
         {
             share.setLoginId(userId);
         }
-        
+
+        public void searchMembers(string nameOrId, string searchWord)
+        {
+            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
+            conn = new MySqlConnection(strConn);  // conncet MySQL
+            conn.Open();
+            String sql = "select * from member where "+ nameOrId + " like '" + searchWord + "%" + "';";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                memberid = reader["memberid"].ToString();
+                password = reader["password"].ToString();
+                name = reader["name"].ToString();
+                birth = reader["birth"].ToString();
+                if (name.Contains(searchWord))
+                {
+                    Console.WriteLine(String.Format("  " + memberid + "\t " + password + "\t\t" + name + "\t\t" + birth));
+                }
+                else if (memberid.Contains(searchWord))
+                {
+                    share.getDisplay().membershipBar();
+                    Console.WriteLine(String.Format("\t" + memberid + "\t " + password + "\t\t" + name + "\t\t" + birth));
+                    Thread.Sleep(800);
+                }
+                else if(name.Contains(searchWord).Equals(false) || memberid.Contains(searchWord).Equals(false))
+                {
+                    Console.WriteLine("검색하신 "+ searchWord + "가(이) 존재하지 않습니다");
+                    Thread.Sleep(800);
+                    share.getMenu().searchAboutMembers();
+                }
+                else
+                {
+                    Console.WriteLine("검색하신 " + searchWord + "가(이) 존재하지 않습니다");
+                    Console.WriteLine("혹은 검색 시 앞글자만 입력해주세요");
+                    Thread.Sleep(800);
+                    share.getMenu().searchAboutMembers();
+                }
+               
+            }
+            reader.Close();
+            conn.Close();
+        }
+
+        //public bool isMatchMember(string nameOrId, string check)
+        //{
+        //    strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
+        //    conn = new MySqlConnection(strConn);
+        //    bool isMatch = true;
+        //    conn.Open();
+        //    String sql = "select * from member where " + nameOrId + " like '" + searchWord + "%" + "';";
+        //    MySqlCommand cmd = new MySqlCommand(sql, conn);
+        //    MySqlDataReader reader = cmd.ExecuteReader();
+        //    while (reader.Read())
+        //    {
+        //        isMatch = true;
+
+        //    }
+        //    if()
+        //    reader.Close();
+        //    conn.Close();
+
+        //}
     }
 }
