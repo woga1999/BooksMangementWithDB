@@ -52,10 +52,11 @@ namespace BookManagementDB
 
         public void searchMembers(string putCategory)
         {
-            Console.Write("\n\t Put wanna search keyword: ");
-            input = Console.ReadLine();
+            Console.Write("\n\t Put wanna search keyword   <back> = back");
+            input = share.getException().exceptSearchWord(putCategory);
 
             share.getMemberTable().searchMembers(putCategory, input);
         }
+       
     }
 }

@@ -19,6 +19,7 @@ namespace BookManagementDB
         Exception exception;
         MemberTable membertable;
         BookTable booktable;
+        RentTable rentTable;
         private static string loginID = null;
         private List<string> loginId = new List<string>();
         private ShareClass()
@@ -31,6 +32,7 @@ namespace BookManagementDB
             exception = new Exception();
             membertable = new MemberTable();
             booktable = new BookTable();
+            rentTable = new RentTable();
         }
         
        
@@ -87,6 +89,10 @@ namespace BookManagementDB
         public BookTable getBookTable()
         {
             return booktable;
+        }
+        public RentTable getRentTable()
+        {
+            return rentTable;
         }
     }
 }

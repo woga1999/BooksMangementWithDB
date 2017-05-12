@@ -17,7 +17,7 @@ namespace BookManagementDB
         {
             Console.Clear();
             share.getDisplay().mainMenuDisplay();
-            input = share.getException().exceptKey("1", "2", "3","/OpenAdmin");
+            input = share.getException().exceptKey("1", "2", "3","/");
 
             if(input == "1")   //등록한 정보가 있으면 로그인 창으로 
             {
@@ -32,20 +32,14 @@ namespace BookManagementDB
             } 
             else if (input == "3") //종료
             {
-                Console.WriteLine(test("memberid", "qkr"));
                 Console.WriteLine("                            프로그램 종료합니다 ");
             }
-            else if(input == "/OpenAdmin")
+            else if(input == "/")
             {
-                share.getLogin().adminLogin();
+                menuLoginAdmin();
             } //숨겨진 관리자 모드 오직 관리자만이 아는 명령어
         }
-        public string test(string num, string b)
-        {
-            string input = "select * from member where " + num + " like '" + b + "%" + "';";
-            return input;
-        }
-
+        
         public void menuLoginAdmin()
         {
             Console.Clear();
@@ -61,24 +55,23 @@ namespace BookManagementDB
                     share.getMember().deleteMember();
                     menuLoginAdmin();
                     break;
-                case "3": //책 목록 보며 책 추가
+                case "3": //책 추가
                     share.getBook().addBook("Add BookInfo");
                     menuLoginAdmin();
                     break;
                 case "4": //책 목록 보며 삭제할 책 고르기
+                    share.getBookTable().booksAllSearchOfDB();
                     share.getBook().deleteBook();
-                    Console.Clear();
                     menuLoginAdmin();
                     break;
                 case "5": //책 목록 보며 수정할 책 고르기
+                    share.getBookTable().booksAllSearchOfDB();
                     share.getBook().modifyBook();
-                    Console.Clear();
                     menuLoginAdmin();
                     break;
                 case "6": //나가기 
                     Console.WriteLine("                        관리자모드 종료합니다 ");
                     Thread.Sleep(800);
-                    Console.Clear();
                     mainMenu();
                     break;
             }
@@ -103,9 +96,10 @@ namespace BookManagementDB
                     menuOnLogin();
                     break;
                 case "4": //대여기간과 뭘 빌렸는지 확인하는 함수
+                    share.getRentTable().rentSearch(share.getLoginId());
                     break;
                 case "5": //책 검색하기
-                    menuOnLogin();
+                    searchAboutBook();
                     break;
                 case "6":
                     Console.WriteLine("로그아웃 합니다."); //메인메뉴로 돌아가기 : 로그아웃했으니
@@ -123,16 +117,16 @@ namespace BookManagementDB
             switch (input)
             {
                 case "1": //책 전체 출력
-                    searchAboutBook();
+                    share.getBookTable().booksAllSearchOfDB();
                     break;
                 case "2": //책 저자으로 검색
-                    searchAboutBook();
+                    share.getBook().searchBook("author");
                     break;
                 case "3": //책 이름으로 검색
-                    searchAboutBook();
+                    share.getBook().searchBook("bookname");
                     break;
                 case "4": //책 가격으로 검색
-                    searchAboutBook();
+                    share.getBook().searchBook("price");
                     break;
                 case "5": //로그인하고 난 후 창으로 뜨기
                     menuOnLogin();

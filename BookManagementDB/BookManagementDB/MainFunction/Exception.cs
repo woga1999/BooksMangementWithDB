@@ -16,15 +16,18 @@ namespace BookManagementDB
             
             while (true)
             {
-                Console.Write("\t\t\t\t : ");
+                Console.SetCursorPosition(33, 10);
+                Console.Write("\t\t\t : ");
                 input = Console.ReadLine();
                 if (input == "") { continue; }
                 else if (input == key) { break; }
                 else if (input == key2) { break; }
-                else if(input == key3) { break; }
+                else if (input == key3) { break; }
                 else if (input == key4) { break; }
                 else
+                {
                     continue;
+                }
             }
             return input;
         }
@@ -96,6 +99,7 @@ namespace BookManagementDB
 
             return stringbuilder.ToString();
         }
+      
         public string matchpw()
         {
             bool isMatch = true;
@@ -110,7 +114,7 @@ namespace BookManagementDB
             return input;
         }
         
-        public string inputId(string direct) //back이 들어있는 예외처리함수
+        public string inputId(string direct) //ID를 입력했을 때 중복이면 입력하지못한다.
         {
             while (true)
             {
@@ -121,15 +125,15 @@ namespace BookManagementDB
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
-                    if (IsExistedId == true) { Console.WriteLine("\t\t존재하는 ID입니다."); }
-                    else if (IsExistedId == false) { break; }
+                    if (IsExistedId.Equals(true)) { Console.WriteLine("\t\t존재하는 ID입니다."); }
+                    else if (IsExistedId.Equals(false)) { break; }
                 }
                 else if(input == "back") { Console.Clear();  share.getMenu().mainMenu(); }
                 else if (!ismatch) { Console.WriteLine("아이디 설정은 6~10자리 사이 숫자나 영어로 저장 가능합니다."); }
             }
             return input;
         }
-        public string inputIdWhenDelete(string direct) //back이 들어있는 예외처리함수
+        public string inputIdWhen(string direct)
         {
             while (true)
             {
@@ -140,10 +144,10 @@ namespace BookManagementDB
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
-                    if (IsExistedId == true) { break; }
-                    else if (IsExistedId == false)
+                    if (IsExistedId.Equals(true)) { break; }
+                    else if (IsExistedId.Equals(false))
                     {
-                        Console.WriteLine("\t\t존재하지 않는 ID입니다. 삭제 할 아이디가 없습니다.");
+                        Console.WriteLine("\t\t존재하지 않는 ID입니다.");
                         Console.WriteLine("\t\t목록을 참고하세요.                       <back> : 뒤로가기");
                     }
                 }
@@ -185,6 +189,78 @@ namespace BookManagementDB
                 {
                     break;
                 }
+            }
+            return input;
+        }
+        public string exceptSearchWord(string put)
+        {
+            while (true)
+            {
+                Console.Write("\n\t\t : ");
+                input = Console.ReadLine();
+                Regex regex = new Regex(@"^[가-힣a-zA-Z0-9 ]");
+                Boolean ismatch = regex.IsMatch(input);
+                bool isFirst = share.getMemberTable().isMatchMember(put, input);
+                if (ismatch)
+                {
+                    if (isFirst.Equals(true)) { break; }
+                    if (input == "back") { share.getMenu().searchAboutMembers(); }
+                    else if (isFirst.Equals(false)) { Console.WriteLine("다시 입력해주세요"); }
+                }
+                else if (!ismatch) { Console.WriteLine("다시 입력해주세요"); }
+            }
+            return input;
+        }
+        public void goBack(string where)
+        {
+            
+            input = Console.ReadLine();
+            Regex regex = new Regex(@"^[a-z]");
+            Boolean ismatch = regex.IsMatch(input);
+            if (ismatch)
+            {
+                if (input == "back" && where == "membersearch") { share.getMenu().searchAboutMembers(); }
+                if (input == "back" && where == "booksearch") { share.getMenu().searchAboutBook(); }
+            }
+            else if (!ismatch) { Console.WriteLine("Nope"); }
+        }
+        public string inputNo()
+        {
+            while (true)
+            {
+                
+                Console.SetCursorPosition(22, 19);
+                input = Console.ReadLine();
+                bool IsExistedNo = share.getBookTable().IsNoDuplication(input);
+                Regex regex = new Regex(@"^[0-9]");
+                Boolean ismatch = regex.IsMatch(input);
+                if (ismatch)
+                {
+                    if (IsExistedNo.Equals(true)) { Console.WriteLine("\t\t존재하는 No입니다.     \n"); }
+                    else if (IsExistedNo.Equals(false)) { break; }
+                }
+                else if (input == "back") { Console.Clear(); share.getMenu().menuLoginAdmin(); }
+                else if (!ismatch) { Console.WriteLine("\t\t숫자 입력만 가능합니다.");
+                }
+            }
+            return input;
+        }
+        public string inputNoWhenDelete()
+        {
+            while (true)
+            {
+                Console.WriteLine("\n\t Put BookNo : ");
+                input = Console.ReadLine();
+                bool IsExistedNo = share.getBookTable().IsNoDuplication(input);
+                Regex regex = new Regex(@"^[0-9]");
+                Boolean ismatch = regex.IsMatch(input);
+                if (ismatch)
+                {
+                    if (IsExistedNo.Equals(true)) { break; }
+                    else if (IsExistedNo.Equals(false)) { Console.WriteLine("\t\t존재하지 않는 No입니다.       \n"); }
+                }
+                else if (input == "back") { Console.Clear(); share.getMenu().menuLoginAdmin(); break; }
+                else if (!ismatch) { Console.WriteLine("\t\t숫자 입력만 가능합니다."); }
             }
             return input;
         }

@@ -40,12 +40,14 @@ namespace BookManagementDB
                 {
                     Console.SetCursorPosition(22, 15);
                     Console.WriteLine("접근 불가");
+                    System.Threading.Thread.Sleep(800);
                 }
             }
             else
             {
                 Console.SetCursorPosition(22, 15);
                 Console.WriteLine("접근 불가");
+                System.Threading.Thread.Sleep(800);
             }
             share.getMenu().mainMenu();
         }

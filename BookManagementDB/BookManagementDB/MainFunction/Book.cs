@@ -17,47 +17,42 @@ namespace BookManagementDB
         {
             Console.WriteLine("\t\t - {0} -          ", message);
             Console.WriteLine(" ");
-            string no = Console.ReadLine();
+            Console.WriteLine("\n\t Put BookNo : ");
+            string no = share.getException().inputNo();
             string bookName = share.getException().notEnter("Book Title");
             
             string author = share.getException().notEnter("Author"); //회원정보 등록할 때는 보이게 한다.
 
             string price = share.getException().onlyNum("Price");
-            
-            string amount = share.getException().onlyNum("Amount");
 
-            share.getBookTable().addBookInDB(no, bookName, author, price, amount);
+            share.getBookTable().addBookInDB(no, bookName, author, price);
 
         }
 
         public void modifyBook() //관리자 모드 일 때
         {
-            Console.WriteLine("\n\t 수정하고 싶으시면 책 제목과 저자를 입력해주세요! ");
-            input = share.getException().notEnter("Book Title");
-            
-            string input2 = share.getException().notEnter("Author");
-            if (input == bookvo.bookName)
-            {
-                if (input2 == bookvo.author)
-                {
-                    share.getBookTable().deleteBookInDB(input);
+            share.getBookTable().booksAllSearchOfDB();
+            Console.WriteLine("\n\t Wanna modify, Put BookNo : ");
+            input = share.getException().inputNoWhenDelete();
+
+            share.getBookTable().deleteBookInDB(input, " ");
                     addBook("BookInfo Modify");
-                }
-                else
-                    Console.WriteLine("존재하지 않는 도서입니다.");
-            }
-            else
-                Console.WriteLine("제목이 동일한 책이 없습니다.");
+              
         }
 
         public void deleteBook() 
         {
-
+            Console.WriteLine("\n\t Wanna Delete, Put BookNo : ");
+            input = share.getException().inputNoWhenDelete();
+            share.getBookTable().deleteBookInDB(input, " 책 정보가 삭제되었습니다.");
         }
 
-        public void printAllBook() //유저도 검색할 수 있다
+        public void searchBook(string category) //유저도 검색할 수 있다
         {
+            Console.Write("\n\t Put wanna search keyword   <back> = back");
+            input = share.getException().notEnter("Keyword");
 
+            share.getBookTable().searchBooks(category, input);
         }
 
     }

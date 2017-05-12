@@ -58,7 +58,7 @@ namespace BookManagementDB
         public void membershipBar()
         {
             Console.WriteLine();
-            Console.WriteLine(String.Format("  ID\t\t PassWord\t Name\t\tBirth"));
+            Console.WriteLine(String.Format(" ID\t\t PassWord\t Name\t\tBirth"));
             Console.WriteLine("==========================================================================");
             Console.WriteLine("");
         }
