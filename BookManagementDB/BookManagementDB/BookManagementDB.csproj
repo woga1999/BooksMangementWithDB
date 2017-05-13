@@ -49,8 +49,8 @@
   <ItemGroup>
     <Compile Include="DatabaseFunction\BookTable.cs" />
     <Compile Include="MainFunction\Book.cs" />
-    <Compile Include="MainFunction\RentAndReturnBook.cs" />
     <Compile Include="DatabaseFunction\MemberTable.cs" />
+    <Compile Include="RentReturnBooks.cs" />
     <Compile Include="RentTable.cs" />
     <Compile Include="VO\BookVO.cs" />
     <Compile Include="Assistant\Display.cs" />

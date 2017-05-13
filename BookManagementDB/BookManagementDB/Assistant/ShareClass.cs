@@ -16,12 +16,12 @@ namespace BookManagementDB
         Book book;
         Member member;
         Menu menu;
+        RentReturnBooks rentretun;
         Exception exception;
         MemberTable membertable;
         BookTable booktable;
         RentTable rentTable;
         private static string loginID = null;
-        private List<string> loginId = new List<string>();
         private ShareClass()
         {
             login = new Login();
@@ -33,6 +33,7 @@ namespace BookManagementDB
             membertable = new MemberTable();
             booktable = new BookTable();
             rentTable = new RentTable();
+            rentretun = new RentReturnBooks();
         }
         
        
@@ -93,6 +94,10 @@ namespace BookManagementDB
         public RentTable getRentTable()
         {
             return rentTable;
+        }
+        public RentReturnBooks getRentRetun()
+        {
+            return rentretun;
         }
     }
 }

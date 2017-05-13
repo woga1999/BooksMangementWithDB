@@ -10,7 +10,6 @@ namespace BookManagementDB
     class Book
     { 
         private static ShareClass share = ShareClass.getShareClass();
-        public BookVO bookvo = new BookVO(null, null, null, null, false);
         string input = null;
 
         public void addBook(string message) //관리자 모드일 때 등록가능
@@ -25,7 +24,7 @@ namespace BookManagementDB
 
             string price = share.getException().onlyNum("Price");
 
-            share.getBookTable().addBookInDB(no, bookName, author, price);
+            share.getBookTable().addBookInDB(no, bookName, author, price, "대출 가능");
 
         }
 

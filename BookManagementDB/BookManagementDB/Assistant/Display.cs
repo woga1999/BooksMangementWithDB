@@ -66,7 +66,15 @@ namespace BookManagementDB
         public void bookBar()
         {
             Console.WriteLine();
-            Console.WriteLine(String.Format("  Title\t\tAuthor\t\tPrice\t\tVolumn\t\tIsrent"));
+            Console.WriteLine(String.Format("  No\t Title \t\t Author \t Price \t Isrent"));
+            Console.WriteLine("===========================================================================");
+            Console.WriteLine();
+
+        }
+        public void rentBookBar()
+        {
+            Console.WriteLine();
+            Console.WriteLine(String.Format("  UserId\t Title \t\t RentDay \t ReturnDay"));
             Console.WriteLine("==========================================================================");
             Console.WriteLine();
 

@@ -86,9 +86,11 @@ namespace BookManagementDB
             switch (input)
             {
                 case "1": //책 대출하는 함수
+                    share.getRentRetun().rentBook();
                     menuOnLogin();
                     break;
                 case "2": //책 반납하는 함수
+                    share.getRentRetun().returnBook();
                     menuOnLogin();
                     break;
                 case "3": //회원 수정하는 함수

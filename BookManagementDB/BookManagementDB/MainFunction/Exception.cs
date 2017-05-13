@@ -114,7 +114,7 @@ namespace BookManagementDB
             return input;
         }
         
-        public string inputId(string direct) //ID를 입력했을 때 중복이면 입력하지못한다.
+        public string inputIdWhenAdd(string direct) //ID를 입력했을 때 중복이면 입력하지못한다.
         {
             while (true)
             {
@@ -133,7 +133,7 @@ namespace BookManagementDB
             }
             return input;
         }
-        public string inputIdWhen(string direct)
+        public string inputIdWhenDelete(string direct)
         {
             while (true)
             {
@@ -264,6 +264,45 @@ namespace BookManagementDB
             }
             return input;
         }
+
+        public string checkRentBookNo()
+        {
+            while (true)
+            {
+                Console.Write("\n\t BookNo : ");
+                input = Console.ReadLine();
+                bool IsMatchNo = share.getRentTable().checkRentBookNo(input);
+                Regex regex = new Regex(@"^[0-9]");
+                Boolean ismatch = regex.IsMatch(input);
+                if (ismatch)
+                {
+                    if (IsMatchNo.Equals(true)) { break; }
+                    else if (IsMatchNo.Equals(false)) { Console.WriteLine("\t\t목록에 없는 No입니다.       \n"); }
+                }
+                else if (!ismatch) { Console.WriteLine("\t\t숫자 입력만 가능합니다."); }
+            }
+            return input;
+        }
+
+        public string checkRentBookName(string no)
+        {
+            while (true)
+            {
+                Console.Write("\n\t BookName : ");
+                input = Console.ReadLine();
+                bool IsMatchName = share.getRentTable().checkRentBookName(no, input);
+                Regex regex = new Regex(@"^[가-힣a-zA-z]");
+                Boolean ismatch = regex.IsMatch(input);
+                if (ismatch)
+                {
+                    if (IsMatchName.Equals(true)) { break; }
+                    else if (IsMatchName.Equals(false)) { Console.WriteLine("\t\t 책 이름과 번호가 맞지않습니다.       \n"); }
+                }
+                else if (!ismatch) { Console.WriteLine("\t\t다시 입력해주세요~"); }
+            }
+            return input;
+        }
+
     }
-    
+
 }

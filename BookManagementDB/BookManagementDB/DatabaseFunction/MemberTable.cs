@@ -242,7 +242,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public bool isMatchMember(string nameOrId, string checkWord)
+        public bool isMatchMember(string nameOrId, string checkWord) //이부분 코드 없애고 북테이블처럼 하기
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);

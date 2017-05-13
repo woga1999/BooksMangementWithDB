@@ -16,7 +16,7 @@ namespace BookManagementDB
         public void addMember(string message) //회원정보 등록할 때 필요하다.
         {
             share.getDisplay().status(message); //등록 시 보일 디스플레이
-            string memeberId = share.getException().inputId("\t ID"); //ID의 예외처리 6~10자리 사이 숫자와영어 조합만 가능
+            string memeberId = share.getException().inputIdWhenAdd("\t ID"); //ID의 예외처리 6~10자리 사이 숫자와영어 조합만 가능
             Console.Write("\t Password: ");
             string memberPwd = Console.ReadLine(); //회원정보 등록할 때는 비밀번호가 보이게 한다.
             Console.Write("\t Name: ");
