@@ -18,9 +18,9 @@ namespace BookManagementDB
             Console.WriteLine(" ");
             Console.WriteLine("\n\t Put BookNo : ");
             string no = share.getException().inputNo();
-            string bookName = share.getException().notEnter("Book Title");
+            string bookName = share.getException().exceptString("Book Title");
             
-            string author = share.getException().notEnter("Author"); //회원정보 등록할 때는 보이게 한다.
+            string author = share.getException().exceptString("Author"); //회원정보 등록할 때는 보이게 한다.
 
             string price = share.getException().onlyNum("Price");
 
@@ -41,7 +41,7 @@ namespace BookManagementDB
 
         public void deleteBook() 
         {
-            Console.WriteLine("\n\t Wanna Delete, Put BookNo : ");
+            Console.Write("\n\t Wanna Delete");
             input = share.getException().inputNoWhenDelete();
             share.getBookTable().deleteBookInDB(input, " 책 정보가 삭제되었습니다.");
         }
@@ -49,7 +49,7 @@ namespace BookManagementDB
         public void searchBook(string category) //유저도 검색할 수 있다
         {
             Console.Write("\n\t Put wanna search keyword   <back> = back");
-            input = share.getException().notEnter("Keyword");
+            input = share.getException().exceptString("Keyword");
 
             share.getBookTable().searchBooks(category, input);
         }

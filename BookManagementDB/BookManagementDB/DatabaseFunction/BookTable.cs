@@ -89,7 +89,7 @@ namespace BookManagementDB
                 price = reader["price"].ToString();
                 renting = reader["isRent"].ToString();
 
-                Console.WriteLine(String.Format("  " + no + "  "+ bookname + "\t\t" + author + "\t" + price +" "+renting));
+                Console.WriteLine(String.Format("  " + no + "   "+ bookname + "\t" + author + "\t" + price +" "+renting));
             }
 
             reader.Close();
@@ -179,70 +179,93 @@ namespace BookManagementDB
 
             conn.Close();
         }
-        public void checkNo(string bookNo) //대출목록에 없는 No를 입력하면 없다고 뜨게
+
+        public bool checkNo(string bookNo) //목록에 없는 No를 입력하면 없다고 뜨게 1
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
             conn.Open();
+            bool isCheckNo = true;
             String sql = "select * from book ;";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 no = reader["no"].ToString();
-                bookname = reader["bookname"].ToString();
-                author = reader["author"].ToString();
-                price = reader["price"].ToString();
-                string renting = reader["isRent"].ToString();
-               
+                if (bookNo == no)
+                {
+                    isCheckNo = true;
+                    break;
+                }
+                else
+                {
+                    isCheckNo = false;
+                }
             }
             reader.Close();
             conn.Close();
+
+            return isCheckNo;
         }
-        public void checkIsRent(string bookNo) //No를 입력하는데 대출불가능이면 빌릴수없다
+
+        public bool checkIsRent(string bookNo) //No를 입력하는데 대출불가능이면 빌릴수없다 2
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
+            bool isRenting = true;
             conn.Open();
-            String sql = "select * from book where ='" + bookNo + "';";
+            String sql = "select * from book where no='" + bookNo + "';";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 no = reader["no"].ToString();
                 bookname = reader["bookname"].ToString();
-                author = reader["author"].ToString();
-                price = reader["price"].ToString();
-                string renting = reader["isRent"].ToString();
+                renting = reader["isRent"].ToString();
                 if (renting == "대출 불가능")
                 {
-                    Console.WriteLine("대출 불가능 합니다.");
+                    isRenting = false;
                 }
                 else if (renting == "대출 가능")
                 {
-
+                    isRenting = true;
                 }
             }
             reader.Close();
             conn.Close();
+            return isRenting;
         }
 
 
-        public void checkBookTitle(string bookNo) //넘버와 북타이틀이 다르면 책제목 다르다고
+        public bool checkBookTitle(string bookNo, string bookTitle) //넘버와 북타이틀이 다르면 책제목 다르다고 1
         { 
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
-            conn = new MySqlConnection(strConn);  // conncet MySQL
+            conn = new MySqlConnection(strConn);
+            bool isMatchNoAndTitle = true;
             conn.Open();
-            String sql = "select * from book ;";
+            String sql = "select * from book where no ='" + bookNo + "';";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                
+                no = reader["no"].ToString();
+                bookname = reader["bookname"].ToString();
+                if(bookNo == no)
+                {
+                    if(bookTitle == bookname)
+                    {
+                        isMatchNoAndTitle = true;
+                    }
+                    else if (bookTitle != bookname)
+                    {
+                        isMatchNoAndTitle = false;
+                    }
+                }
 
             }
             reader.Close();
             conn.Close();
+            return isMatchNoAndTitle;
         }
     }
 }

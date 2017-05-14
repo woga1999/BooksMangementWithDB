@@ -182,11 +182,12 @@ namespace BookManagementDB
                     if (input2 == password)
                     {
                         Console.Clear();
-                        staticMemberID(memberid);
+                        saveMemberID(memberid);
                         login = true;
                         Console.WriteLine("\n\n\t\t" + name + "님 로그인되셨습니다."); //로그인 성공! 로그인시 뜨는 화면으로 들어간다
                         Thread.Sleep(800);
                         share.getMenu().menuOnLogin();
+                        break;
                     }
                     else
                     {
@@ -211,7 +212,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        internal void staticMemberID(string userId)
+        internal void saveMemberID(string userId)
         {
             share.setLoginId(userId);
         }
@@ -242,7 +243,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public bool isMatchMember(string nameOrId, string checkWord) //이부분 코드 없애고 북테이블처럼 하기
+        public bool isMatchMember(string nameOrId, string checkWord) //booktable과는 비슷한 방식의 search 
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);

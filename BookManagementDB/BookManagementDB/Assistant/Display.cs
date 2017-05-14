@@ -74,7 +74,7 @@ namespace BookManagementDB
         public void rentBookBar()
         {
             Console.WriteLine();
-            Console.WriteLine(String.Format("  UserId\t Title \t\t RentDay \t ReturnDay"));
+            Console.WriteLine(String.Format("  UserId  No \t Title \t\t RentDay \t ReturnDay"));
             Console.WriteLine("==========================================================================");
             Console.WriteLine();
 

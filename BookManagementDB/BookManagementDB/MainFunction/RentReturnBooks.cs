@@ -17,8 +17,8 @@ namespace BookManagementDB
         {
             share.getBookTable().booksAllSearchOfDB();
             Console.WriteLine("\n\t목록을 보고 빌리고 싶은 No와 책 이름을 입력해주세요");
-            bookNo = Console.ReadLine(); //No 대출불가능은 대출할수없게 no로 판단한다
-            bookName = Console.ReadLine(); // No랑 책이름 맞지않으면 다시입력~
+            bookNo = share.getException().checkNoWhenRent(); //No 대출불가능은 대출할수없게 no로 판단한다
+            bookName = share.getException().checkNameNo(bookNo); // No랑 책이름 맞지않으면 다시입력~
             if (cnt < 3)
             {
                 share.getBookTable().changeRenting("대출 불가능", bookNo);

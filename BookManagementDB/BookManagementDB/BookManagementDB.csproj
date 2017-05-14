@@ -50,15 +50,13 @@
     <Compile Include="DatabaseFunction\BookTable.cs" />
     <Compile Include="MainFunction\Book.cs" />
     <Compile Include="DatabaseFunction\MemberTable.cs" />
-    <Compile Include="RentReturnBooks.cs" />
-    <Compile Include="RentTable.cs" />
-    <Compile Include="VO\BookVO.cs" />
+    <Compile Include="MainFunction\RentReturnBooks.cs" />
+    <Compile Include="DatabaseFunction\RentTable.cs" />
     <Compile Include="Assistant\Display.cs" />
     <Compile Include="MainFunction\Exception.cs" />
     <Compile Include="MainFunction\Login.cs" />
     <Compile Include="Assistant\ShareClass.cs" />
     <Compile Include="MainFunction\Member.cs" />
-    <Compile Include="VO\MemberVO.cs" />
     <Compile Include="MainFunction\Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -104,8 +104,10 @@ namespace BookManagementDB
                     searchAboutBook();
                     break;
                 case "6":
-                    Console.WriteLine("로그아웃 합니다."); //메인메뉴로 돌아가기 : 로그아웃했으니
+                    Console.Clear();
+                    Console.WriteLine("\n\n\t\t 로그아웃 됐습니다."); //메인메뉴로 돌아가기 : 로그아웃했으니
                     Thread.Sleep(800);
+                    mainMenu();
                     break;
             }
         }

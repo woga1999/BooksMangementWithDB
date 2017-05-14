@@ -29,7 +29,6 @@ namespace BookManagementDB
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
             
-            share.getDisplay().bookBar();
             while (reader.Read())
             {
                 id = reader["memberid"].ToString();
@@ -38,12 +37,17 @@ namespace BookManagementDB
                 rentDay = reader["rentday"].ToString();
                 returnDay = reader["returnday"].ToString();
                 cnt++;
+                share.getDisplay().rentBookBar();
                 Console.WriteLine(String.Format("  " + id + " " + no+ "\t " + title + "\t\t" + rentDay + "  "+returnDay  ));
             }
-            if(cnt == 0) { Console.WriteLine("\n\t\t 빌린 책이 없습니다");Thread.Sleep(800); }
+            if(cnt == 0)
+            {
+                Console.WriteLine("\n\t\t 빌린 책이 없습니다");Thread.Sleep(800);
+            }
 
             reader.Close();
             conn.Close();
+            share.getException().goBack("memberlogin");
         }
 
         public void addRentTable(string bookNo, string bookTitle)
@@ -98,7 +102,8 @@ namespace BookManagementDB
 
             conn.Close();
         }
-        public bool checkRentBookNo(string bookNo) //될지 모르겠어
+
+        public bool checkRentBookNo(string bookNo)
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn);
@@ -130,7 +135,7 @@ namespace BookManagementDB
 
             return isMatchNo;
         }
-        public bool checkRentBookName(string bookNo,string bookTitle) //될지 모르겠어
+        public bool checkRentBookName(string bookNo,string bookTitle)
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn); //MySQL 연결
