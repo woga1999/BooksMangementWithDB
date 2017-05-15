@@ -19,7 +19,8 @@ namespace BookManagementDB
         string title = null;
         string rentDay = null;
         string returnDay = null;
-        public void rentSearch(string userid) //뭘 빌렸는지 로그인 한 본인 아이디에 관해서 출력
+
+        public void rentSearch(string userid, string message) //뭘 빌렸는지 로그인 한 본인 아이디에 관해서 출력
         {
             Console.Clear();
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
@@ -53,7 +54,7 @@ namespace BookManagementDB
             if(cnt == 0)
             {
                 Console.Clear();
-                Console.WriteLine("\n\t\t 빌린 책이 없습니다");Thread.Sleep(800);
+                Console.WriteLine("\n\t\t {0} 책이 없습니다", message);Thread.Sleep(800);
             }
 
             reader.Close();
@@ -134,6 +135,7 @@ namespace BookManagementDB
                     if (bookNo == no)
                     {
                         isMatchNo = true;
+                        break;
                     }
                     else
                     {
@@ -146,6 +148,7 @@ namespace BookManagementDB
 
             return isMatchNo;
         }
+
         public bool checkRentBookName(string bookNo,string bookTitle) //rent 테이블 내 빌린 책 넘버와 책 이름이 맞는지 비교한다
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
@@ -168,6 +171,7 @@ namespace BookManagementDB
                         if(bookTitle == bookName)
                         {
                             isMatchName = true;
+                            break;
                         }
                         else if (bookTitle != bookName)
                         {

@@ -154,6 +154,7 @@ namespace BookManagementDB
                         Console.WriteLine("\t 확인되었습니다.");
                         Thread.Sleep(800);
                         isMatchPwd = true;
+                        break;
                     }
                     else if (password != pwd)
                     {
@@ -162,7 +163,6 @@ namespace BookManagementDB
                         isMatchPwd = false;
                     }
                 }
-
             }
 
             reader.Close();

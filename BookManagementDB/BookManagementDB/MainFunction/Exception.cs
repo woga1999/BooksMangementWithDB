@@ -183,7 +183,7 @@ namespace BookManagementDB
             {
                 Console.Write("\t {0} : ", message);
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[1-9]{1}[0-9]{3,9}$");
+                Regex regex = new Regex(@"^[1-9]{1}[0-9]{2,8}[0]{1}$");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
@@ -329,7 +329,7 @@ namespace BookManagementDB
         {
             while (true)
             {
-                Console.Write("\n\t Put BookNo : ");
+                Console.Write("\t Put BookNo : ");
                 input = Console.ReadLine();
                 Regex regex = new Regex(@"^[0-9]{1,10}$");
                 Boolean ismatch = regex.IsMatch(input);
@@ -337,7 +337,7 @@ namespace BookManagementDB
                 {
                     bool isExistedNo = share.getBookTable().IsNoDuplication(input);
                     if (isExistedNo.Equals(true)) { break; }
-                    else if (isExistedNo.Equals(false)) { Console.WriteLine("\t\t존재하지 않는 No입니다.       \n"); }
+                    else if (isExistedNo.Equals(false)) { Console.WriteLine("\t\t존재하지 않는 No입니다."); }
                 }
                 else if (input == "back") { Console.Clear(); share.getMenu().menuLoginAdmin(); break; }
                 else if (!ismatch) { Console.WriteLine("\t\t숫자 입력만 가능합니다."); }
@@ -389,6 +389,7 @@ namespace BookManagementDB
             {
                 Console.Write("\t BookNo : ");
                 input = Console.ReadLine();
+                if(input == "back") { share.getMenu().menuOnLogin(); }
                 bool isCheckNo = share.getBookTable().checkNo(input);
                 
                 if (isCheckNo.Equals(true))

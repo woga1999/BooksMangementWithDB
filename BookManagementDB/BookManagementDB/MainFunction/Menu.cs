@@ -72,7 +72,6 @@ namespace BookManagementDB
                 case "6": //나가기 
                     Console.WriteLine("                        관리자모드 종료합니다 ");
                     Thread.Sleep(800);
-                    mainMenu();
                     break;
             }
         }
@@ -98,7 +97,7 @@ namespace BookManagementDB
                     menuOnLogin();
                     break;
                 case "4": //대여기간과 뭘 빌렸는지 확인하는 함수
-                    share.getRentTable().rentSearch(share.getLoginId());
+                    share.getRentTable().rentSearch(share.getLoginId(),"빌린");
                     share.getException().goBack("memberlogin");
                     break;
                 case "5": //책 검색하기

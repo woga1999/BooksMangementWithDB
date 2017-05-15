@@ -19,7 +19,8 @@ namespace BookManagementDB
         string author = null;
         string price = null;
         string renting = null;
-        public void addBookInDB(string no, string bookTitle, string author, string price, string renting)
+
+        public void addBookInDB(string no, string bookTitle, string author, string price, string renting) //booktable에 책 정보 추가
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn); //MySQL 연결
@@ -45,7 +46,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public void deleteBookInDB(string no, string message)
+        public void deleteBookInDB(string no, string message) //booktable에서 책 삭제 쿼리문을 이용해서 삭제
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn); //MySQL 연결
@@ -70,7 +71,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public void booksAllSearchOfDB()
+        public void booksAllSearchOfDB() //booktable에 있는 책들 전체 출력
         {
             Console.Clear();
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
@@ -105,7 +106,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public bool IsNoDuplication(string no)
+        public bool IsNoDuplication(string no) //No가 primary key라 중복되면 안되기에 중복검사하는 bool함수
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
@@ -130,7 +131,7 @@ namespace BookManagementDB
             return duplication;
 
         }
-        public void searchBooks(string titleOrAuthorOr, string searchWord)
+        public void searchBooks(string titleOrAuthorOr, string searchWord) //검색할 때 카테고리를 분류해 찾을 키워드를 입력한다
         {
             int cnt = 0, count = 3;
             Console.Clear();
@@ -148,7 +149,7 @@ namespace BookManagementDB
                 author = reader["author"].ToString();
                 price = reader["price"].ToString();
                 renting = reader["isRent"].ToString();
-                if (bookname.Contains(searchWord) || author.Contains(searchWord) || price.Contains(searchWord))
+                if (bookname.Contains(searchWord) || author.Contains(searchWord) || price.Contains(searchWord)) //키워드가 포함되면 출력
                 {
                     cnt++;
                     Console.SetCursorPosition(8, count);
@@ -162,18 +163,17 @@ namespace BookManagementDB
                     Console.SetCursorPosition(95, count);
                     Console.Write(renting);
                     count += 2;
-                    share.getException().goBack("booksearch");
                 }
             }
-            if(cnt == 0)
+            if (cnt == 0)
             {
                 Console.Clear();
-                Console.WriteLine("\t\t"+titleOrAuthorOr+" 내에서 "+ searchWord+"에 대한 검색결과가 없습니다");
+                Console.WriteLine("\t\t" + titleOrAuthorOr + " 내에서 " + searchWord + "에 대한 검색결과가 없습니다");
                 Thread.Sleep(800);
-                share.getException().goBack("booksearch");
             }
             reader.Close();
             conn.Close();
+            share.getException().goBack("booksearch");
         }
 
         public void changeRenting(string renting, string no) //대출 불가능으로 가능으로 바꾸거나 대출 가능을 불가능으로 바꾼다

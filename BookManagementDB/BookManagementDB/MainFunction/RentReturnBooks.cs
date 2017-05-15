@@ -16,35 +16,38 @@ namespace BookManagementDB
         public void rentBook() //대출
         {
             share.getBookTable().booksAllSearchOfDB();
-            Console.WriteLine("\n\t목록을 보고 빌리고 싶은 No와 책 이름을 입력해주세요");
+            Console.WriteLine("\n\n\t목록을 보고 빌리고 싶은 No와 책 이름을 입력해주세요");
 
             bookNo = share.getException().checkNoWhenRent(); 
             bookName = share.getException().checkNameNo(bookNo);
             int cnt = share.getRentTable().rentCount(share.getLoginId());
 
-            if (cnt < 3) //3권 만 빌릴 수 있다 대출 제한
+            if (cnt <= 3) //3권 만 빌릴 수 있다 대출 제한
             {
                 share.getBookTable().changeRenting("대출 불가능", bookNo);
                 share.getRentTable().addRentTable(bookNo,bookName);
                 cnt++;
             }
-            else if (cnt >= 3)
+            else if (cnt > 3)
             {
                 Console.Clear();
                 Console.WriteLine("\n\n\n\n");
-                Console.WriteLine(" 대출은 최대 3권까지만 가능합니다.");
+                Console.WriteLine("\t 대출은 최대 3권까지만 가능합니다.");
+                System.Threading.Thread.Sleep(800);
                 share.getMenu().menuOnLogin();
             }
         }
         public void returnBook() //반납
         {
-            share.getRentTable().rentSearch(share.getLoginId());
+            share.getRentTable().rentSearch(share.getLoginId(),"반납 할");
 
-            Console.WriteLine("\n\t 본인 목록 보고 반납할 책 No와 이름을 입력해주세요");
-            bookNo = share.getException().checkRentBookNo(); //목록에없는 책 넘버와 다르면 놉 
-            bookName = share.getException().checkRentBookName(bookNo); //목록에서 다른 걸 고르면 놉
-            share.getBookTable().changeRenting("대출 가능", bookNo);
-            share.getRentTable().deleteRentTable(bookName);
+            Console.WriteLine("\n\n\n\t 본인 목록 보고 반납할 책 No와 이름을 입력해주세요");
+                bookNo = share.getException().checkRentBookNo(); //목록에없는 책 넘버와 다르면 놉 
+                bookName = share.getException().checkRentBookName(bookNo); //목록에서 다른 걸 고르면 놉
+
+                share.getBookTable().changeRenting("대출 가능", bookNo);
+                share.getRentTable().deleteRentTable(bookName);
+           
 
         }
     }

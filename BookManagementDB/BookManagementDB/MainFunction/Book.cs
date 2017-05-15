@@ -17,7 +17,6 @@ namespace BookManagementDB
             Console.Clear();
             Console.WriteLine("\t\t - {0} -          ", message);
             Console.WriteLine(" ");
-            Console.WriteLine("\n\t Put BookNo : ");
             string no = share.getException().inputNo();
             string bookName = share.getException().exceptString("Book Title");
             
@@ -42,7 +41,7 @@ namespace BookManagementDB
 
         public void deleteBook() 
         {
-            Console.Write("\n\t Wanna Delete");
+            Console.Write("\n\n\n\t Wanna Delete");
             input = share.getException().inputNoWhenDelete();
             share.getBookTable().deleteBookInDB(input, " 책 정보가 삭제되었습니다.");
         }
