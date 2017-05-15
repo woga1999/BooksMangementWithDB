@@ -13,7 +13,7 @@ namespace BookManagementDB
         private static ShareClass share = ShareClass.getShareClass();
         String strConn;
         MySqlConnection conn;
-        int cnt = 0;
+        int cnt = 0, count = 3;
         string id = null;
         string no = null;
         string title = null;
@@ -37,17 +37,28 @@ namespace BookManagementDB
                 title = reader["bookname"].ToString();
                 rentDay = reader["rentday"].ToString();
                 returnDay = reader["returnday"].ToString();
-                cnt++;
-                Console.WriteLine(String.Format("  " + id + " " + no+ "\t " + title + "\t\t" + rentDay + "  "+returnDay  ));
+
+                Console.SetCursorPosition(8, count);
+                Console.Write(id);
+                Console.SetCursorPosition(30, count);
+                Console.Write(no);
+                Console.SetCursorPosition(40, count);
+                Console.Write(title);
+                Console.SetCursorPosition(68, count);
+                Console.Write(rentDay);
+                Console.SetCursorPosition(95, count);
+                Console.Write(returnDay);
+                count += 2; cnt++;
             }
             if(cnt == 0)
             {
+                Console.Clear();
                 Console.WriteLine("\n\t\t 빌린 책이 없습니다");Thread.Sleep(800);
             }
 
             reader.Close();
             conn.Close();
-            share.getException().goBack("memberlogin");
+            
         }
 
         public void addRentTable(string bookNo, string bookTitle) //대출 시 rent 테이블에 들어갈 데이터 추가 쿼리문
@@ -171,7 +182,7 @@ namespace BookManagementDB
             return isMatchName;
         }
 
-        public int rentCount(string userid) //뭘 빌렸는지 로그인 한 본인 아이디에 관해서 출력
+        public int rentCount(string userid) //뭘 빌렸는지 개수를 세서 대출 제한을 둘 수 있게 한다
         {
             Console.Clear();
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";

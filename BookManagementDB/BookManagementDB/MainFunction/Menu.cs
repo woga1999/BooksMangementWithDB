@@ -99,6 +99,7 @@ namespace BookManagementDB
                     break;
                 case "4": //대여기간과 뭘 빌렸는지 확인하는 함수
                     share.getRentTable().rentSearch(share.getLoginId());
+                    share.getException().goBack("memberlogin");
                     break;
                 case "5": //책 검색하기
                     searchAboutBook();
@@ -122,6 +123,7 @@ namespace BookManagementDB
             {
                 case "1": //책 전체 출력
                     share.getBookTable().booksAllSearchOfDB();
+                    share.getException().goBack("booksearch");
                     break;
                 case "2": //책 저자으로 검색
                     share.getBook().searchBook("author");

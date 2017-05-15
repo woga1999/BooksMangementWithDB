@@ -11,7 +11,6 @@ namespace BookManagementDB
 
     class MemberTable
     {
-
         private static ShareClass share = ShareClass.getShareClass();
         String strConn;
         MySqlConnection conn;
@@ -19,6 +18,7 @@ namespace BookManagementDB
         string password = null;
         string name = null;
         string birth = null;
+        int count = 3;
 
         public void addMemberInDB(string memberId, string memberPwd, string memberName, string memberBirth) 
         {
@@ -77,13 +77,14 @@ namespace BookManagementDB
 
         public void memberAllSearchOfDB() //DB 내 저장한 데이터들 모두 출력
         {
+            Console.Clear();
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  
             conn.Open();
             String sql = "select * from member;";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
-
+            
             share.getDisplay().membershipBar();
             while (reader.Read())
             {
@@ -92,8 +93,15 @@ namespace BookManagementDB
                 name = reader["name"].ToString();
                 birth = reader["birth"].ToString();
 
-
-                Console.WriteLine(String.Format("  " + memberid + "\t " + password + "\t\t" + name + "\t\t" + birth));
+                Console.SetCursorPosition(8, count);
+                Console.Write(memberid);
+                Console.SetCursorPosition(28, count);
+                Console.Write(password);
+                Console.SetCursorPosition(48, count);
+                Console.Write(name);
+                Console.SetCursorPosition(70, count);
+                Console.Write(birth);
+                count += 2;
             }
 
             reader.Close();
@@ -220,6 +228,7 @@ namespace BookManagementDB
 
         public void searchMembers(string nameOrId, string searchWord)
         {
+            Console.Clear();
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
             conn.Open();
@@ -235,7 +244,15 @@ namespace BookManagementDB
                 birth = reader["birth"].ToString();
                 if (name.Contains(searchWord) || memberid.Contains(searchWord))
                 {
-                    Console.WriteLine(String.Format("  " + memberid + "\t " + password + "\t\t" + name + "\t\t" + birth));
+                    Console.SetCursorPosition(8, count);
+                    Console.Write(memberid);
+                    Console.SetCursorPosition(28, count);
+                    Console.Write(password);
+                    Console.SetCursorPosition(48, count);
+                    Console.Write(name);
+                    Console.SetCursorPosition(70, count);
+                    Console.Write(birth);
+                    count += 2;
                     share.getException().goBack("membersearch");
                 }
 

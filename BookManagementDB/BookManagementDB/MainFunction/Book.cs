@@ -49,7 +49,7 @@ namespace BookManagementDB
 
         public void searchBook(string category) //유저도 검색할 수 있다
         {
-            Console.Write("\n\t Put wanna search keyword   <back> = back");
+            Console.Write("\n\n\t Put wanna search keyword  ");
             input = share.getException().exceptString("Keyword");
 
             share.getBookTable().searchBooks(category, input);

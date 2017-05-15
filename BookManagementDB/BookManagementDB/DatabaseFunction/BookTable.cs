@@ -79,17 +79,27 @@ namespace BookManagementDB
             String sql = "select * from book;";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
-            
+            int count = 3;
             share.getDisplay().bookBar();
             while (reader.Read())
             {
+                
                 no = reader["no"].ToString();
                 bookname = reader["bookname"].ToString();
                 author = reader["author"].ToString();
                 price = reader["price"].ToString();
                 renting = reader["isRent"].ToString();
-
-                Console.WriteLine(String.Format("  " + no + "   "+ bookname + "\t" + author + "\t" + price +" "+renting));
+                Console.SetCursorPosition(8, count);
+                Console.Write(no);
+                Console.SetCursorPosition(15, count);
+                Console.Write(bookname);
+                Console.SetCursorPosition(58, count);
+                Console.Write(author);
+                Console.SetCursorPosition(80, count);
+                Console.Write(price);
+                Console.SetCursorPosition(95, count);
+                Console.Write(renting);
+                count += 2;
             }
 
             reader.Close();
@@ -123,7 +133,7 @@ namespace BookManagementDB
         }
         public void searchBooks(string titleOrAuthorOr, string searchWord)
         {
-            int cnt = 0;
+            int cnt = 0, count = 3;
             Console.Clear();
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
@@ -142,7 +152,17 @@ namespace BookManagementDB
                 if (bookname.Contains(searchWord) || author.Contains(searchWord) || price.Contains(searchWord))
                 {
                     cnt++;
-                    Console.WriteLine(String.Format("\t " + no + "   " + bookname + "\t" + author + "\t" + price + "\t" + renting));
+                    Console.SetCursorPosition(8, count);
+                    Console.Write(no);
+                    Console.SetCursorPosition(15, count);
+                    Console.Write(bookname);
+                    Console.SetCursorPosition(58, count);
+                    Console.Write(author);
+                    Console.SetCursorPosition(80, count);
+                    Console.Write(price);
+                    Console.SetCursorPosition(95, count);
+                    Console.Write(renting);
+                    count += 2;
                     share.getException().goBack("booksearch");
                 }
             }

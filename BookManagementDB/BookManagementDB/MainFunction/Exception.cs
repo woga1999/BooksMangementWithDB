@@ -174,7 +174,7 @@ namespace BookManagementDB
             return input;
         }
 
-        public string onlyNumPrice(string message)
+        public string onlyNumPrice(string message) //가격입력 시 0000원이나 0원 10원은 통상적으로 존재하지 않으니 입력 제한을 둔다
         {
             while (true)
             {
@@ -195,7 +195,7 @@ namespace BookManagementDB
             return input;
         }
 
-        public string onlySixNumDigits()
+        public string onlySixNumDigits() //생년월일 6자리를 입력받을 시 쓰인다 
         {
             while (true)
             {
@@ -216,30 +216,30 @@ namespace BookManagementDB
             }
             return input;
         }
-        public string exceptString(string message)
+        public string exceptString(string message) //문자열들을 입력받을 때 쓰인다
         {
             while (true)
             {
                 Console.Write("\t {0} : ", message);
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[가-힣a-zA-Z0-9]");
+                Regex regex = new Regex(@"^[가-힣a-zA-Z0-9]{1,20}");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
                     break;
                 }
-                else if (!ismatch) { Console.WriteLine("\t다시 입력해주세요"); }
+                else if (!ismatch) { Console.WriteLine("\t 다시 입력해주세요(20자리이내 제한)"); }
             }
             return input;
         }
         
-        public string exceptSearchWord(string put)
+        public string exceptSearchWord(string put) //검색 시 존재하는 데이터들과 맞는지 검사한다
         {
             while (true)
             {
                 Console.Write("\n\t\t : ");
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[가-힣a-zA-Z0-9]");
+                Regex regex = new Regex(@"^[가-힣a-zA-Z0-9]{1,20}");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
@@ -252,7 +252,7 @@ namespace BookManagementDB
             }
             return input;
         }
-        public void goBack(string where)
+        public void goBack(string where) //뒤로가고싶은 구간에 쓰인다
         {
             while (true)
             {
@@ -270,7 +270,7 @@ namespace BookManagementDB
             }
         }
 
-        public string inputNo()
+        public string inputNo() //책 번호 입력 시 중복인지 검사하고 입력제한을 둔다
         {
             while (true)
             {
@@ -292,7 +292,7 @@ namespace BookManagementDB
             }
             return input;
         }
-        public string inputNoWhenDelete()
+        public string inputNoWhenDelete() //책 번호를 통해 지울 때 존재하는지 검사한다
         {
             while (true)
             {
@@ -312,7 +312,7 @@ namespace BookManagementDB
             return input;
         }
 
-        public string checkRentBookNo()
+        public string checkRentBookNo() //빌리고 반납할 때 넘버도 같이 입력받는데 빌렸던 책 넘버여야 반납할 수 있게 한다
         {
             while (true)
             {
@@ -331,7 +331,7 @@ namespace BookManagementDB
             return input;
         }
 
-        public string checkRentBookName(string no)
+        public string checkRentBookName(string no) //빌린 책 넘버와 제목이 맞는지 검사한다.
         {
             while (true)
             {
@@ -350,7 +350,7 @@ namespace BookManagementDB
             return input;
         }
         
-        public string checkNoWhenRent()
+        public string checkNoWhenRent() //책 빌릴 때 존재하는 책 번호인지 검사하고 대출 불가능 상태이면 빌리지 못하게 한다.
         {
             while (true)
             {
@@ -378,7 +378,7 @@ namespace BookManagementDB
             return input;
         }
 
-        public string checkNameNo(string bookNo)
+        public string checkNameNo(string bookNo) //그리고 빌릴 때 기존 데이터 책 번호와 제목이 맞는지 검사한다.
         {
             while (true)
             {

@@ -50,7 +50,7 @@ namespace BookManagementDB
 
         public void searchMembers(string putCategory)
         {
-            Console.Write("\n\t Put wanna search keyword   <back> = back");
+            Console.Write("\n\n\t Put wanna search keyword ");
             input = share.getException().exceptSearchWord(putCategory);
 
             share.getMemberTable().searchMembers(putCategory, input);
