@@ -19,7 +19,7 @@ namespace BookManagementDB
         string title = null;
         string rentDay = null;
         string returnDay = null;
-        public void rentSearch(string userid) //뭘 빌렸는지 본인 아이디에 관해서 출력
+        public void rentSearch(string userid) //뭘 빌렸는지 로그인 한 본인 아이디에 관해서 출력
         {
             Console.Clear();
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
@@ -28,7 +28,8 @@ namespace BookManagementDB
             String sql = "select * from rent where memberid ='" + userid +"';";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
-            
+
+            share.getDisplay().rentBookBar();
             while (reader.Read())
             {
                 id = reader["memberid"].ToString();
@@ -37,7 +38,6 @@ namespace BookManagementDB
                 rentDay = reader["rentday"].ToString();
                 returnDay = reader["returnday"].ToString();
                 cnt++;
-                share.getDisplay().rentBookBar();
                 Console.WriteLine(String.Format("  " + id + " " + no+ "\t " + title + "\t\t" + rentDay + "  "+returnDay  ));
             }
             if(cnt == 0)
@@ -50,7 +50,7 @@ namespace BookManagementDB
             share.getException().goBack("memberlogin");
         }
 
-        public void addRentTable(string bookNo, string bookTitle)
+        public void addRentTable(string bookNo, string bookTitle) //대출 시 rent 테이블에 들어갈 데이터 추가 쿼리문
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn);
@@ -76,7 +76,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public void deleteRentTable(string bookTitle)
+        public void deleteRentTable(string bookTitle) //삭제쿼리문을 이용해 반납 함수 기능을 하게 한다
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn); 
@@ -103,7 +103,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public bool checkRentBookNo(string bookNo)
+        public bool checkRentBookNo(string bookNo) //rent 테이블 내 데이터들을 비교해서 빌린 책 넘버가 맞는지 확인
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn);
@@ -135,10 +135,10 @@ namespace BookManagementDB
 
             return isMatchNo;
         }
-        public bool checkRentBookName(string bookNo,string bookTitle)
+        public bool checkRentBookName(string bookNo,string bookTitle) //rent 테이블 내 빌린 책 넘버와 책 이름이 맞는지 비교한다
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
-            conn = new MySqlConnection(strConn); //MySQL 연결
+            conn = new MySqlConnection(strConn); 
             bool isMatchName = true;
             conn.Open();
             string sql = "select * from rent where memberid ='" + share.getLoginId() + "';";
@@ -170,5 +170,34 @@ namespace BookManagementDB
 
             return isMatchName;
         }
+
+        public int rentCount(string userid) //뭘 빌렸는지 로그인 한 본인 아이디에 관해서 출력
+        {
+            Console.Clear();
+            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
+            conn = new MySqlConnection(strConn);
+            conn.Open();
+            String sql = "select * from rent where memberid ='" + userid + "';";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            share.getDisplay().rentBookBar();
+            while (reader.Read())
+            {
+                id = reader["memberid"].ToString();
+                no = reader["no"].ToString();
+                title = reader["bookname"].ToString();
+                rentDay = reader["rentday"].ToString();
+                returnDay = reader["returnday"].ToString();
+                cnt++;
+              
+            }
+
+            reader.Close();
+            conn.Close();
+
+            return cnt;
+        }
+
     }
 }

@@ -7,7 +7,7 @@ using System.Threading;
 using MySql.Data.MySqlClient;
 
 namespace BookManagementDB
-{
+{//메뉴 모음
     class Menu
     {
         private static ShareClass share = ShareClass.getShareClass();
@@ -40,7 +40,7 @@ namespace BookManagementDB
             } //숨겨진 관리자 모드 오직 관리자만이 아는 명령어
         }
         
-        public void menuLoginAdmin()
+        public void menuLoginAdmin() //관리자모드로 가서 로그인 후 뜨는 관리자가 관리하는 메뉴
         {
             Console.Clear();
             share.getDisplay().administrationModeDisplay();
@@ -112,7 +112,7 @@ namespace BookManagementDB
             }
         }
 
-        public void searchAboutBook()
+        public void searchAboutBook() //책 검색창
         {
             Console.Clear();
             share.getDisplay().bookSearchDisplay();
@@ -132,12 +132,12 @@ namespace BookManagementDB
                 case "4": //책 가격으로 검색
                     share.getBook().searchBook("price");
                     break;
-                case "5": //로그인하고 난 후 창으로 뜨기
+                case "5": //유저로그인 후 창으로 뜨기
                     menuOnLogin();
                     break;
             }
         }
-        public void searchAboutMembers()
+        public void searchAboutMembers() //멤버 검색 메뉴
         {
             Console.Clear();
             share.getDisplay().memberSearchDisplay();

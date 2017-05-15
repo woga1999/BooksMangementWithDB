@@ -58,24 +58,24 @@ namespace BookManagementDB
         public void membershipBar()
         {
             Console.WriteLine();
-            Console.WriteLine(String.Format(" ID\t\t PassWord\t Name\t\tBirth"));
-            Console.WriteLine("==========================================================================");
+            Console.WriteLine(String.Format("\t ID\t\t PassWord\t Name\t\tBirth"));
+            Console.WriteLine("\t==========================================================================");
             Console.WriteLine("");
         }
 
         public void bookBar()
         {
             Console.WriteLine();
-            Console.WriteLine(String.Format("  No\t Title \t\t Author \t Price \t Isrent"));
-            Console.WriteLine("===========================================================================");
+            Console.WriteLine(String.Format("\t No  Title \t\t Author \t Price \t Isrent"));
+            Console.WriteLine("\t===========================================================================");
             Console.WriteLine();
 
         }
         public void rentBookBar()
         {
             Console.WriteLine();
-            Console.WriteLine(String.Format("  UserId  No \t Title \t\t RentDay \t ReturnDay"));
-            Console.WriteLine("==========================================================================");
+            Console.WriteLine(String.Format("\t  UserId  No \t Title \t\t RentDay \t ReturnDay"));
+            Console.WriteLine("\t==========================================================================");
             Console.WriteLine();
 
         }

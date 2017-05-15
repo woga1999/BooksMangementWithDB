@@ -19,7 +19,8 @@ namespace BookManagementDB
         string password = null;
         string name = null;
         string birth = null;
-        public void addMemberInDB(string memberId, string memberPwd, string memberName, string memberBirth)
+
+        public void addMemberInDB(string memberId, string memberPwd, string memberName, string memberBirth) 
         {
 
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
@@ -47,7 +48,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public void deleteMemberInDB(string memberId, string message)
+        public void deleteMemberInDB(string memberId, string message) //삭제 쿼리 문을 이용한 데이터 삭제
         {
 
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
@@ -74,10 +75,10 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public void memberAllSearchOfDB()
+        public void memberAllSearchOfDB() //DB 내 저장한 데이터들 모두 출력
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
-            conn = new MySqlConnection(strConn);  // conncet MySQL
+            conn = new MySqlConnection(strConn);  
             conn.Open();
             String sql = "select * from member;";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -100,10 +101,10 @@ namespace BookManagementDB
             share.getException().goBack("membersearch");
         }
 
-        public bool IsIdDuplication(string userid)
+        public bool IsIdDuplication(string userid) //Id가 DB내 데이터를 비교하여 존재하는지 
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
-            conn = new MySqlConnection(strConn);  // conncet MySQL
+            conn = new MySqlConnection(strConn);  
             conn.Open();
             String sql = "select * from member;";
             MySqlCommand cmd = new MySqlCommand(sql, conn);

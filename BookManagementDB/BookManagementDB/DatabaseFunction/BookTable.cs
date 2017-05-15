@@ -124,13 +124,14 @@ namespace BookManagementDB
         public void searchBooks(string titleOrAuthorOr, string searchWord)
         {
             int cnt = 0;
+            Console.Clear();
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
             conn.Open();
-            share.getDisplay().membershipBar();
             String sql = "select * from book where " + titleOrAuthorOr + " like '" + searchWord + "%" + "';";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
+            share.getDisplay().bookBar();
             while (reader.Read())
             {
                 no = reader["no"].ToString();
@@ -141,12 +142,13 @@ namespace BookManagementDB
                 if (bookname.Contains(searchWord) || author.Contains(searchWord) || price.Contains(searchWord))
                 {
                     cnt++;
-                    Console.WriteLine(String.Format("  " + no + "  " + bookname + "\t\t" + author + "\t" + price + " " + renting));
+                    Console.WriteLine(String.Format("\t " + no + "   " + bookname + "\t" + author + "\t" + price + "\t" + renting));
                     share.getException().goBack("booksearch");
                 }
             }
             if(cnt == 0)
             {
+                Console.Clear();
                 Console.WriteLine("\t\t"+titleOrAuthorOr+" 내에서 "+ searchWord+"에 대한 검색결과가 없습니다");
                 Thread.Sleep(800);
                 share.getException().goBack("booksearch");
@@ -155,15 +157,15 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public void changeRenting(string renting, string no)
+        public void changeRenting(string renting, string no) //대출 불가능으로 가능으로 바꾸거나 대출 가능을 불가능으로 바꾼다
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
-            conn = new MySqlConnection(strConn); //MySQL 연결
+            conn = new MySqlConnection(strConn); 
 
             conn.Open();
             //update ABCDE set column1='xyz' where no='3'
             string sql = "update book set isRent ='" + renting +"'"+ " where no ="+"'"+no+"';";
-            MySqlCommand cmd = new MySqlCommand(sql, conn); // command
+            MySqlCommand cmd = new MySqlCommand(sql, conn); 
             if (cmd.ExecuteNonQuery() == 1)
             {
                 Console.Clear();
@@ -180,7 +182,7 @@ namespace BookManagementDB
             conn.Close();
         }
 
-        public bool checkNo(string bookNo) //목록에 없는 No를 입력하면 없다고 뜨게 1
+        public bool checkNo(string bookNo) //목록에 없는 No를 입력하면 없다고 뜨게끔 DB 내 데이터들을 검사한다
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
@@ -208,7 +210,7 @@ namespace BookManagementDB
             return isCheckNo;
         }
 
-        public bool checkIsRent(string bookNo) //No를 입력하는데 대출불가능이면 빌릴수없다 2
+        public bool checkIsRent(string bookNo) //No를 입력하는데 대출불가능이면 빌릴수없게 끔 DB를 이용해 데이터들을 비교한다
         {
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
@@ -237,7 +239,7 @@ namespace BookManagementDB
         }
 
 
-        public bool checkBookTitle(string bookNo, string bookTitle) //넘버와 북타이틀이 다르면 책제목 다르다고 1
+        public bool checkBookTitle(string bookNo, string bookTitle) //넘버와 북타이틀이 다르면 책제목 다르다고 DB내 데이터들 비교한다
         { 
             strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);

@@ -15,8 +15,8 @@ namespace BookManagementDB
         {
             Console.Clear();
             share.getDisplay().loginDisplay("Member Login");
-            Console.SetCursorPosition(22, 6);
-            inputId = Console.ReadLine(); 
+            //Console.SetCursorPosition(22, 6);
+            inputId = share.getException().loginId(); 
             Console.SetCursorPosition(22, 10);
             inputPwd = share.getException().inputpwd(); //패스워드 *표시 하는 예외처리
              share.getMemberTable().loginUsingDB(inputId, inputPwd); 
@@ -26,8 +26,8 @@ namespace BookManagementDB
         {
             Console.Clear();
             share.getDisplay().loginDisplay("Administrator Login");
-            Console.SetCursorPosition(22, 6);
-            inputId = Console.ReadLine();
+            //Console.SetCursorPosition(22, 6);
+            inputId = share.getException().loginId();
             Console.SetCursorPosition(22, 10);
             inputPwd = share.getException().inputpwd();
             if (inputId == "admin")

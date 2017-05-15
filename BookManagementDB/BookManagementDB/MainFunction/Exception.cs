@@ -11,7 +11,8 @@ namespace BookManagementDB
     { 
         string input = null;
         private static ShareClass share = ShareClass.getShareClass();
-        public string exceptKey(string key, string key2, string key3, string key4)
+
+        public string exceptKey(string key, string key2, string key3, string key4) //key 값들에 대한 예외처리
         {
             
             while (true)
@@ -19,7 +20,7 @@ namespace BookManagementDB
                 Console.SetCursorPosition(33, 10);
                 Console.Write("\t\t\t : ");
                 input = Console.ReadLine();
-                if (input == "") { continue; }
+                if (input == "") {  continue; }
                 else if (input == key) { break; }
                 else if (input == key2) { break; }
                 else if (input == key3) { break; }
@@ -32,7 +33,7 @@ namespace BookManagementDB
             return input;
         }
 
-        public string exceptSwitchEntry(int first, int last)
+        public string exceptSwitchEntry(int first, int last) //스위치 문을 이용할 때 쓰이는 입력 예외처리
         {
             string number = null;
 
@@ -49,7 +50,8 @@ namespace BookManagementDB
                     continue;
                 }
                 else if (ismatch)
-                {continue;
+                {
+                    continue;
                 }
                 else if (ismatch2)
                 {
@@ -70,7 +72,7 @@ namespace BookManagementDB
             return number;
         }
 
-        public string inputpwd()
+        public string inputpwd() //패스워드입력하면 *모양으로 나오게 하는 메서드
         {
             StringBuilder stringbuilder = new StringBuilder();
             while (true)
@@ -100,7 +102,7 @@ namespace BookManagementDB
             return stringbuilder.ToString();
         }
       
-        public string matchpw()
+        public string matchpw() //입력한 패스워드랑 유저가 로그인 한 아이디와 맞는지 확인하는 메서드 맞으면 행동이 되고 맞지않으면 입력값을 받게
         {
             bool isMatch = true;
             while (true)
@@ -113,7 +115,20 @@ namespace BookManagementDB
 
             return input;
         }
-        
+        public string loginId() //로그인 할 때 아이디 입력받는 칸에 빈칸으로 두고 넘어갈려 하면 입력하라는 창이 뜨게한다
+        {
+            while (true)
+            {
+                Console.SetCursorPosition(22, 6);
+                input = Console.ReadLine();
+                Regex regex = new Regex(@"^[ ]");
+                Boolean ismatch = regex.IsMatch(input);
+                if (input == "" || ismatch) { Console.WriteLine("\n\n\n\n\n\n\t 아이디를 입력해주세요"); }
+                
+                else { break; }
+            }
+            return input;
+        }
         public string inputIdWhenAdd(string direct) //ID를 입력했을 때 중복이면 입력하지못한다.
         {
             while (true)
@@ -133,7 +148,7 @@ namespace BookManagementDB
             }
             return input;
         }
-        public string inputIdWhenDelete(string direct)
+        public string inputIdWhenDelete(string direct) //정보 추가할 때와 다르게 지울 때는 존재해야 지울 수 있게 한다
         {
             while (true)
             {
@@ -159,13 +174,13 @@ namespace BookManagementDB
             return input;
         }
 
-        public string onlyNum(string message)
+        public string onlyNumPrice(string message)
         {
             while (true)
             {
                 Console.Write("\t {0} : ", message);
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[0-9]*$");
+                Regex regex = new Regex(@"^[1-9]{1}[0-9]{3,9}$");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
@@ -175,7 +190,7 @@ namespace BookManagementDB
                         break;
                     }
                 }
-                else if (!ismatch) { Console.WriteLine("\t 숫자만 입력 가능합니다"); }
+                else if (!ismatch) { Console.WriteLine("\t 똑바로 입력해주세요 4~10자리 내 숫자만 입력 가능합니다"); }
             }
             return input;
         }
@@ -186,17 +201,18 @@ namespace BookManagementDB
             {
                 Console.Write("\t Birth(Only 6digits): ");
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[0-9]{6}*$");
+                Regex regex = new Regex(@"^[0-9]{2}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}$");
+
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
-                    if (input == "") { continue; }
+                    if(input == "000000") { continue; }
                     else
                     {
                         break;
                     }
                 }
-                else if (!ismatch) { Console.WriteLine("\t 6자리 숫자만 입력 가능합니다"); }
+                else if (!ismatch) { Console.WriteLine("\t 6자리 생년월일을 입력해주세요."); }
             }
             return input;
         }
@@ -206,7 +222,7 @@ namespace BookManagementDB
             {
                 Console.Write("\t {0} : ", message);
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[가-힣a-zA-Z]");
+                Regex regex = new Regex(@"^[가-힣a-zA-Z0-9]");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
@@ -216,6 +232,7 @@ namespace BookManagementDB
             }
             return input;
         }
+        
         public string exceptSearchWord(string put)
         {
             while (true)
@@ -239,7 +256,7 @@ namespace BookManagementDB
         {
             while (true)
             {
-                Console.Write("\t wanna back put <back> : ");
+                Console.Write("\n\t wanna back put <back> : ");
                 input = Console.ReadLine();
                 Regex regex = new Regex(@"^[a-z]");
                 Boolean ismatch = regex.IsMatch(input);
@@ -249,7 +266,7 @@ namespace BookManagementDB
                     if (input == "back" && where == "booksearch") { share.getMenu().searchAboutBook(); break; }
                     if (input == "back" && where == "memberlogin") { share.getMenu().menuOnLogin(); break; }
                 }
-                else if (!ismatch) { Console.WriteLine("Nope"); }
+                else if (!ismatch) { Console.WriteLine("\t\t\t\t Nope"); }
             }
         }
 
@@ -257,20 +274,20 @@ namespace BookManagementDB
         {
             while (true)
             {
-                Console.SetCursorPosition(22, 19);
+                Console.SetCursorPosition(22, 3); //쓸지 안 쓸지 고민해보기
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[0-9]");
+                Regex regex = new Regex(@"^[0-9]{1,20}$");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
                     bool IsExistedNo = share.getBookTable().IsNoDuplication(input);
-                    if (IsExistedNo.Equals(true)) { Console.WriteLine("\t\t존재하는 No입니다.     \n"); }
+                    if (IsExistedNo.Equals(true)) { Console.WriteLine("  존재하는 No입니다.     "); }
                     else if (IsExistedNo.Equals(false)) { break; }
                 }
                 else if (input == "back") { Console.Clear(); share.getMenu().menuLoginAdmin(); }
                 else if (!ismatch)
                 {
-                    Console.WriteLine("\t\t숫자 입력만 가능합니다.");
+                    Console.WriteLine("  1~20자리 내 숫자 입력만 가능합니다.  ");
                 }
             }
             return input;
@@ -281,7 +298,7 @@ namespace BookManagementDB
             {
                 Console.Write("\n\t Put BookNo : ");
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[0-9]");
+                Regex regex = new Regex(@"^[0-9]{1,20}$");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
@@ -301,7 +318,7 @@ namespace BookManagementDB
             {
                 Console.Write("\n\t BookNo : ");
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[0-9]");
+                Regex regex = new Regex(@"^[0-9]{1,20}$");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
@@ -320,7 +337,7 @@ namespace BookManagementDB
             {
                 Console.Write("\n\t BookName : ");
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[가-힣a-zA-z]");
+                Regex regex = new Regex(@"^[가-힣a-zA-z0-9]");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
@@ -367,7 +384,7 @@ namespace BookManagementDB
             {
                 Console.Write("\t BookName : ");
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[가-힣a-zA-z]");
+                Regex regex = new Regex(@"^[가-힣a-zA-z0-9]");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {

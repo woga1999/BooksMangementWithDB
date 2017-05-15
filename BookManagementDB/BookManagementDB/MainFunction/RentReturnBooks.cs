@@ -12,20 +12,23 @@ namespace BookManagementDB
         private static ShareClass share = ShareClass.getShareClass();
         string bookNo = null;
         string bookName = null;
-        int cnt = 0;
-        public void rentBook()
+
+        public void rentBook() //대출
         {
             share.getBookTable().booksAllSearchOfDB();
             Console.WriteLine("\n\t목록을 보고 빌리고 싶은 No와 책 이름을 입력해주세요");
-            bookNo = share.getException().checkNoWhenRent(); //No 대출불가능은 대출할수없게 no로 판단한다
-            bookName = share.getException().checkNameNo(bookNo); // No랑 책이름 맞지않으면 다시입력~
-            if (cnt < 3)
+
+            bookNo = share.getException().checkNoWhenRent(); 
+            bookName = share.getException().checkNameNo(bookNo);
+            int cnt = share.getRentTable().rentCount(share.getLoginId());
+
+            if (cnt < 3) //3권 만 빌릴 수 있다 대출 제한
             {
                 share.getBookTable().changeRenting("대출 불가능", bookNo);
                 share.getRentTable().addRentTable(bookNo,bookName);
                 cnt++;
             }
-            else if (cnt >3)
+            else if (cnt >= 3)
             {
                 Console.Clear();
                 Console.WriteLine("\n\n\n\n");
@@ -33,7 +36,7 @@ namespace BookManagementDB
                 share.getMenu().menuOnLogin();
             }
         }
-        public void returnBook()
+        public void returnBook() //반납
         {
             share.getRentTable().rentSearch(share.getLoginId());
 

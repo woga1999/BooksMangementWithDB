@@ -14,6 +14,7 @@ namespace BookManagementDB
 
         public void addBook(string message) //관리자 모드일 때 등록가능
         {
+            Console.Clear();
             Console.WriteLine("\t\t - {0} -          ", message);
             Console.WriteLine(" ");
             Console.WriteLine("\n\t Put BookNo : ");
@@ -22,7 +23,7 @@ namespace BookManagementDB
             
             string author = share.getException().exceptString("Author"); //회원정보 등록할 때는 보이게 한다.
 
-            string price = share.getException().onlyNum("Price");
+            string price = share.getException().onlyNumPrice("Price");
 
             share.getBookTable().addBookInDB(no, bookName, author, price, "대출 가능");
 
