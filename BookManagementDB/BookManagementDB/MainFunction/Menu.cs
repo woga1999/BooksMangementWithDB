@@ -17,7 +17,7 @@ namespace BookManagementDB
         {
             Console.Clear();
             share.getDisplay().mainMenuDisplay();
-            input = share.getException().exceptKey("1", "2", "3","/");
+            input = share.getException().exceptKey("1", "2", "3","/Open");
 
             if(input == "1")   //등록한 정보가 있으면 로그인 창으로 
             {
@@ -34,9 +34,9 @@ namespace BookManagementDB
             {
                 Console.WriteLine("                            프로그램 종료합니다 ");
             }
-            else if(input == "/")
+            else if(input == "/Open")
             {
-                menuLoginAdmin();
+                share.getLogin().adminLogin();
             } //숨겨진 관리자 모드 오직 관리자만이 아는 명령어
         }
         

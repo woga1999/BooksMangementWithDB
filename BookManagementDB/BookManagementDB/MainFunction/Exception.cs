@@ -14,19 +14,19 @@ namespace BookManagementDB
 
         public string exceptKey(string key, string key2, string key3, string key4) //key 값들에 대한 예외처리
         {
-            
             while (true)
             {
                 Console.SetCursorPosition(33, 10);
                 Console.Write("\t\t\t : ");
                 input = Console.ReadLine();
-                if (input == "") {  continue; }
+                if (input == "") { input.Replace(input, "                                   "); continue; }
                 else if (input == key) { break; }
                 else if (input == key2) { break; }
                 else if (input == key3) { break; }
                 else if (input == key4) { break; }
                 else
                 {
+                    input.Replace(input, "                                ");
                     continue;
                 }
             }
@@ -115,6 +115,7 @@ namespace BookManagementDB
 
             return input;
         }
+
         public string loginId() //로그인 할 때 아이디 입력받는 칸에 빈칸으로 두고 넘어갈려 하면 입력하라는 창이 뜨게한다
         {
             while (true)
@@ -129,6 +130,7 @@ namespace BookManagementDB
             }
             return input;
         }
+
         public string inputIdWhenAdd(string direct) //ID를 입력했을 때 중복이면 입력하지못한다.
         {
             while (true)
@@ -148,6 +150,7 @@ namespace BookManagementDB
             }
             return input;
         }
+
         public string inputIdWhenDelete(string direct) //정보 추가할 때와 다르게 지울 때는 존재해야 지울 수 있게 한다
         {
             while (true)
@@ -206,7 +209,7 @@ namespace BookManagementDB
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
-                    if(input == "000000") { continue; }
+                    if(input == "000000") { Console.WriteLine("\t 존재하지않습니다."); }
                     else
                     {
                         break;
@@ -216,6 +219,7 @@ namespace BookManagementDB
             }
             return input;
         }
+
         public string exceptString(string message) //문자열들을 입력받을 때 쓰인다
         {
             while (true)
@@ -232,7 +236,35 @@ namespace BookManagementDB
             }
             return input;
         }
-        
+
+        public string exceptName(string message) //문자열들을 입력받을 때 쓰인다
+        {
+            while (true)
+            {
+                Console.Write("\t {0} : ", message);
+                input = Console.ReadLine();
+                Regex regex = new Regex(@"^[가-힣]{2,10}");
+                Boolean ismatch = regex.IsMatch(input);
+                Regex regex2 = new Regex(@"^[A-Z]{1}[a-z]{1,9}");
+                Boolean ismatch2 = regex2.IsMatch(input);
+                if (ismatch || ismatch2)
+                {
+                    break;
+                }
+                else if (!ismatch)
+                {if (!ismatch2)
+                    {
+                        Console.WriteLine("\t if you entry Name first 'a-z', Upper(2~10 Digits)");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\t 다시 입력해주세요(2~10자리이내 제한)");
+                    } }
+               
+            }
+            return input;
+        }
+
         public string exceptSearchWord(string put) //검색 시 존재하는 데이터들과 맞는지 검사한다
         {
             while (true)
@@ -252,11 +284,12 @@ namespace BookManagementDB
             }
             return input;
         }
+
         public void goBack(string where) //뒤로가고싶은 구간에 쓰인다
         {
             while (true)
             {
-                Console.Write("\n\t wanna back put <back> : ");
+                Console.Write("\n\n\t wanna back put <back> : ");
                 input = Console.ReadLine();
                 Regex regex = new Regex(@"^[a-z]");
                 Boolean ismatch = regex.IsMatch(input);
@@ -266,7 +299,7 @@ namespace BookManagementDB
                     if (input == "back" && where == "booksearch") { share.getMenu().searchAboutBook(); break; }
                     if (input == "back" && where == "memberlogin") { share.getMenu().menuOnLogin(); break; }
                 }
-                else if (!ismatch) { Console.WriteLine("\t\t\t\t Nope"); }
+                else if (!ismatch) { Console.Write("\t\t\t\t Nope"); }
             }
         }
 
@@ -274,9 +307,9 @@ namespace BookManagementDB
         {
             while (true)
             {
-                Console.SetCursorPosition(22, 3); //쓸지 안 쓸지 고민해보기
+                Console.Write("\n\t BookNo : ");
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[0-9]{1,20}$");
+                Regex regex = new Regex(@"^[0-9]{1,10}$");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
@@ -298,7 +331,7 @@ namespace BookManagementDB
             {
                 Console.Write("\n\t Put BookNo : ");
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[0-9]{1,20}$");
+                Regex regex = new Regex(@"^[0-9]{1,10}$");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
@@ -318,7 +351,7 @@ namespace BookManagementDB
             {
                 Console.Write("\n\t BookNo : ");
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[0-9]{1,20}$");
+                Regex regex = new Regex(@"^[0-9]{1,10}$");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
@@ -337,7 +370,7 @@ namespace BookManagementDB
             {
                 Console.Write("\n\t BookName : ");
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[가-힣a-zA-z0-9]");
+                Regex regex = new Regex(@"^[가-힣a-zA-z0-9]{1,20}");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {
@@ -384,7 +417,7 @@ namespace BookManagementDB
             {
                 Console.Write("\t BookName : ");
                 input = Console.ReadLine();
-                Regex regex = new Regex(@"^[가-힣a-zA-z0-9]");
+                Regex regex = new Regex(@"^[가-힣a-zA-z0-9]{1,20}");
                 Boolean ismatch = regex.IsMatch(input);
                 if (ismatch)
                 {

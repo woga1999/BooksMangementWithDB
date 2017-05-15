@@ -83,7 +83,6 @@ namespace BookManagementDB
             share.getDisplay().bookBar();
             while (reader.Read())
             {
-                
                 no = reader["no"].ToString();
                 bookname = reader["bookname"].ToString();
                 author = reader["author"].ToString();
