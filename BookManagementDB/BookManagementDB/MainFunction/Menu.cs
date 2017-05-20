@@ -17,7 +17,7 @@ namespace BookManagementDB
         {
             Console.Clear();
             share.getDisplay().mainMenuDisplay();
-            input = share.getException().exceptKey("1", "2", "3","/Open");
+            input = share.getException().exceptKey("1", "2", "3","/");
 
             if(input == "1")   //등록한 정보가 있으면 로그인 창으로 
             {
@@ -34,13 +34,13 @@ namespace BookManagementDB
             {
                 Console.WriteLine("                            프로그램 종료합니다 ");
             }
-            else if(input == "/Open")
+            else if(input == "/")
             {
                 share.getLogin().adminLogin();
             } //숨겨진 관리자 모드 오직 관리자만이 아는 명령어
         }
         
-        public void menuLoginAdmin() //관리자모드로 가서 로그인 후 뜨는 관리자가 관리하는 메뉴
+        public void adminMenu() //관리자모드로 가서 로그인 후 뜨는 관리자가 관리하는 메뉴
         {
             Console.Clear();
             share.getDisplay().administrationModeDisplay();
@@ -53,21 +53,20 @@ namespace BookManagementDB
                     break;
                 case "2": //회원삭제
                     share.getMember().deleteMember();
-                    menuLoginAdmin();
+                    adminMenu();
                     break;
                 case "3": //책 추가
                     share.getBook().addBook("Add BookInfo");
-                    menuLoginAdmin();
+                    adminMenu();
                     break;
                 case "4": //책 목록 보며 삭제할 책 고르기
                     share.getBookTable().booksAllSearchOfDB();
                     share.getBook().deleteBook();
-                    menuLoginAdmin();
                     break;
                 case "5": //책 목록 보며 수정할 책 고르기
                     share.getBookTable().booksAllSearchOfDB();
                     share.getBook().modifyBook();
-                    menuLoginAdmin();
+                    adminMenu();
                     break;
                 case "6": //나가기 
                     Console.WriteLine("                        관리자모드 종료합니다 ");
@@ -148,6 +147,7 @@ namespace BookManagementDB
             {
                 case "1": //멤버 전체 출력
                     share.getMemberTable().memberAllSearchOfDB();
+                    share.getException().goBack("membersearch");
                     break;
                 case "2": //멤버 아이디 검색
                     share.getMember().searchMembers("memberid");
@@ -156,7 +156,7 @@ namespace BookManagementDB
                     share.getMember().searchMembers("name");
                     break;
                 case "4": //관리인 로그인 창으로 
-                    menuLoginAdmin();
+                    adminMenu();
                     break;
             }
         }

@@ -10,7 +10,6 @@ namespace BookManagementDB
 {
     class RentTable
     {
-        private static ShareClass share = ShareClass.getShareClass();
         String strConn;
         MySqlConnection conn;
         int cnt = 0, count = 3;
@@ -19,18 +18,23 @@ namespace BookManagementDB
         string title = null;
         string rentDay = null;
         string returnDay = null;
-
+        public RentTable()
+        {
+            strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
+            
+        }
+        
+        
         public void rentSearch(string userid, string message) //뭘 빌렸는지 로그인 한 본인 아이디에 관해서 출력
         {
             Console.Clear();
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  
             conn.Open();
             String sql = "select * from rent where memberid ='" + userid +"';";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
 
-            share.getDisplay().rentBookBar();
+            ShareClass.getShareClass().getDisplay().rentBookBar();
             while (reader.Read())
             {
                 id = reader["memberid"].ToString();
@@ -64,12 +68,12 @@ namespace BookManagementDB
 
         public void addRentTable(string bookNo, string bookTitle) //대출 시 rent 테이블에 들어갈 데이터 추가 쿼리문
         {
-            strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
+            
             conn = new MySqlConnection(strConn);
 
             conn.Open();
 
-            string sql = "insert into rent values('" + share.getLoginId()+ "','" + bookNo + "','" + bookTitle +"','"+ DateTime.Now+"','"+DateTime.Now.AddDays(7) + "' ); ";
+            string sql = "insert into rent values('" + ShareClass.getShareClass().getLoginId()+ "','" + bookNo + "','" + bookTitle +"','"+ DateTime.Now+"','"+DateTime.Now.AddDays(7) + "' ); ";
             MySqlCommand cmd = new MySqlCommand(sql, conn); 
 
             if (cmd.ExecuteNonQuery() == 1)
@@ -90,7 +94,6 @@ namespace BookManagementDB
 
         public void deleteRentTable(string bookTitle) //삭제쿼리문을 이용해 반납 함수 기능을 하게 한다
         {
-            strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn); 
 
             conn.Open();
@@ -117,11 +120,10 @@ namespace BookManagementDB
 
         public bool checkRentBookNo(string bookNo) //rent 테이블 내 데이터들을 비교해서 빌린 책 넘버가 맞는지 확인
         {
-            strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn);
             bool isMatchNo = false;
             conn.Open();
-            string sql = "select * from rent where memberid ='" + share.getLoginId() + "';";
+            string sql = "select * from rent where memberid ='" + ShareClass.getShareClass().getLoginId() + "';";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -130,7 +132,7 @@ namespace BookManagementDB
                 string memberid = reader["memberid"].ToString();
                 string no = reader["no"].ToString();
                 string bookName = reader["bookname"].ToString();
-                if (share.getLoginId() == memberid)
+                if (ShareClass.getShareClass().getLoginId() == memberid)
                 {
                     if (bookNo == no)
                     {
@@ -151,11 +153,10 @@ namespace BookManagementDB
 
         public bool checkRentBookName(string bookNo,string bookTitle) //rent 테이블 내 빌린 책 넘버와 책 이름이 맞는지 비교한다
         {
-            strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn); 
             bool isMatchName = true;
             conn.Open();
-            string sql = "select * from rent where memberid ='" + share.getLoginId() + "';";
+            string sql = "select * from rent where memberid ='" + ShareClass.getShareClass().getLoginId() + "';";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -164,7 +165,7 @@ namespace BookManagementDB
                 string memberid = reader["memberid"].ToString();
                 string no = reader["no"].ToString();
                 string bookName = reader["bookname"].ToString();
-                if (share.getLoginId() == memberid)
+                if (ShareClass.getShareClass().getLoginId() == memberid)
                 {
                     if (bookNo == no)
                     {
@@ -189,14 +190,13 @@ namespace BookManagementDB
         public int rentCount(string userid) //뭘 빌렸는지 개수를 세서 대출 제한을 둘 수 있게 한다
         {
             Console.Clear();
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);
             conn.Open();
             String sql = "select * from rent where memberid ='" + userid + "';";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
 
-            share.getDisplay().rentBookBar();
+            ShareClass.getShareClass().getDisplay().rentBookBar();
             while (reader.Read())
             {
                 id = reader["memberid"].ToString();
@@ -214,5 +214,32 @@ namespace BookManagementDB
             return cnt;
         }
 
+        public bool Checkrentbook(string userid)
+        {
+            conn = new MySqlConnection(strConn);
+            conn.Open();
+            bool isRent = false;
+            String sql = "select * from rent where memberid ='" + userid + "';";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            
+            while (reader.Read())
+            {
+                id = reader["memberid"].ToString();
+                if (userid == id)
+                {
+                    isRent = true;
+                    break;
+                }
+                else
+                {
+                    isRent = false;
+                }
+            }
+
+            reader.Close();
+            conn.Close();
+            return isRent;
+        }
     }
 }

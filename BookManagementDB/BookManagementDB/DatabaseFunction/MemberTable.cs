@@ -11,7 +11,6 @@ namespace BookManagementDB
 
     class MemberTable
     {
-        private static ShareClass share = ShareClass.getShareClass();
         String strConn;
         MySqlConnection conn;
         string memberid = null;
@@ -19,11 +18,13 @@ namespace BookManagementDB
         string name = null;
         string birth = null;
         int count = 3;
-
+        public MemberTable()
+        {
+            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
+        }
         public void addMemberInDB(string memberId, string memberPwd, string memberName, string memberBirth) 
         {
-
-            strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
+            
             conn = new MySqlConnection(strConn); //MySQL 연결
 
             conn.Open();
@@ -50,8 +51,7 @@ namespace BookManagementDB
 
         public void deleteMemberInDB(string memberId, string message) //삭제 쿼리 문을 이용한 데이터 삭제
         {
-
-            strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
+            
             conn = new MySqlConnection(strConn); //MySQL 연결
 
             conn.Open();
@@ -78,14 +78,13 @@ namespace BookManagementDB
         public void memberAllSearchOfDB() //DB 내 저장한 데이터들 모두 출력
         {
             Console.Clear();
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  
             conn.Open();
             String sql = "select * from member;";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
-            
-            share.getDisplay().membershipBar();
+
+            ShareClass.getShareClass().getDisplay().membershipBar();
             while (reader.Read())
             {
                 memberid = reader["memberid"].ToString();
@@ -106,12 +105,10 @@ namespace BookManagementDB
 
             reader.Close();
             conn.Close();
-            share.getException().goBack("membersearch");
         }
 
         public bool IsIdDuplication(string userid) //Id가 DB내 데이터를 비교하여 존재하는지 
         {
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  
             conn.Open();
             String sql = "select * from member;";
@@ -135,8 +132,7 @@ namespace BookManagementDB
         }
 
         public bool checkIdOfPwd(string userid, string pwd)
-        {
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
+        { 
             conn = new MySqlConnection(strConn);  // conncet MySQL
             bool isMatchPwd = true;
             conn.Open();
@@ -173,7 +169,6 @@ namespace BookManagementDB
 
         public void loginUsingDB(string input, string input2)
         {
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
             bool login = true;
             conn.Open();
@@ -195,14 +190,14 @@ namespace BookManagementDB
                         login = true;
                         Console.WriteLine("\n\n\t\t" + name + "님 로그인되셨습니다."); //로그인 성공! 로그인시 뜨는 화면으로 들어간다
                         Thread.Sleep(800);
-                        share.getMenu().menuOnLogin();
+                        ShareClass.getShareClass().getMenu().menuOnLogin();
                         break;
                     }
                     else
                     {
                         Console.WriteLine("\n\n\t 비밀번호 오류");
                         Thread.Sleep(800);
-                        share.getLogin().login(); //다시한번 로그인 창
+                        ShareClass.getShareClass().getLogin().login(); //다시한번 로그인 창
                     }
                 }
                 else
@@ -215,7 +210,7 @@ namespace BookManagementDB
             {
                 Console.WriteLine("\n\n\t 아이디가 존재하지 않습니다");
                 Thread.Sleep(800);
-                share.getMenu().mainMenu();
+                ShareClass.getShareClass().getMenu().mainMenu();
             }
             reader.Close();
             conn.Close();
@@ -223,16 +218,15 @@ namespace BookManagementDB
 
         internal void saveMemberID(string userId)
         {
-            share.setLoginId(userId);
+            ShareClass.getShareClass().setLoginId(userId);
         }
 
         public void searchMembers(string nameOrId, string searchWord)
         {
             Console.Clear();
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
             conn.Open();
-            share.getDisplay().membershipBar();
+            ShareClass.getShareClass().getDisplay().membershipBar();
             String sql = "select * from member where "+ nameOrId + " like '" + searchWord + "%" + "';";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -253,7 +247,7 @@ namespace BookManagementDB
                     Console.SetCursorPosition(70, count);
                     Console.Write(birth);
                     count += 2;
-                    share.getException().goBack("membersearch");
+                    ShareClass.getShareClass().getException().goBack("membersearch");
                 }
 
             }
@@ -263,7 +257,6 @@ namespace BookManagementDB
 
         public bool isMatchMember(string nameOrId, string checkWord) //booktable과는 비슷한 방식의 search 
         {
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);
             bool isMatch = false;
             conn.Open();

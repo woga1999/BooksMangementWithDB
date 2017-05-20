@@ -19,10 +19,12 @@ namespace BookManagementDB
         string author = null;
         string price = null;
         string renting = null;
-
-        public void addBookInDB(string no, string bookTitle, string author, string price, string renting) //booktable에 책 정보 추가
+        public BookTable()
         {
             strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
+        }
+        public void addBookInDB(string no, string bookTitle, string author, string price, string renting) //booktable에 책 정보 추가
+        {
             conn = new MySqlConnection(strConn); //MySQL 연결
 
             conn.Open();
@@ -48,7 +50,6 @@ namespace BookManagementDB
 
         public void deleteBookInDB(string no, string message) //booktable에서 책 삭제 쿼리문을 이용해서 삭제
         {
-            strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn); //MySQL 연결
 
             conn.Open();
@@ -74,7 +75,6 @@ namespace BookManagementDB
         public void booksAllSearchOfDB() //booktable에 있는 책들 전체 출력
         {
             Console.Clear();
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
             conn.Open();
             String sql = "select * from book;";
@@ -108,7 +108,6 @@ namespace BookManagementDB
 
         public bool IsNoDuplication(string no) //No가 primary key라 중복되면 안되기에 중복검사하는 bool함수
         {
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
             conn.Open();
             String sql = "select * from book;";
@@ -135,7 +134,6 @@ namespace BookManagementDB
         {
             int cnt = 0, count = 3;
             Console.Clear();
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
             conn.Open();
             String sql = "select * from book where " + titleOrAuthorOr + " like '" + searchWord + "%" + "';";
@@ -178,7 +176,6 @@ namespace BookManagementDB
 
         public void changeRenting(string renting, string no) //대출 불가능으로 가능으로 바꾸거나 대출 가능을 불가능으로 바꾼다
         {
-            strConn = "Server=localhost; Database=bookmanage; Uid=root; Pwd=1206";
             conn = new MySqlConnection(strConn); 
 
             conn.Open();
@@ -203,7 +200,6 @@ namespace BookManagementDB
 
         public bool checkNo(string bookNo) //목록에 없는 No를 입력하면 없다고 뜨게끔 DB 내 데이터들을 검사한다
         {
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
             conn.Open();
             bool isCheckNo = true;
@@ -231,7 +227,6 @@ namespace BookManagementDB
 
         public bool checkIsRent(string bookNo) //No를 입력하는데 대출불가능이면 빌릴수없게 끔 DB를 이용해 데이터들을 비교한다
         {
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);  // conncet MySQL
             bool isRenting = true;
             conn.Open();
@@ -260,7 +255,6 @@ namespace BookManagementDB
 
         public bool checkBookTitle(string bookNo, string bookTitle) //넘버와 북타이틀이 다르면 책제목 다르다고 DB내 데이터들 비교한다
         { 
-            strConn = "Server=localhost;Database=bookmanage;Uid=root;Pwd=1206";
             conn = new MySqlConnection(strConn);
             bool isMatchNoAndTitle = true;
             conn.Open();

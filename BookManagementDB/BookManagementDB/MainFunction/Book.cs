@@ -43,7 +43,11 @@ namespace BookManagementDB
         {
             Console.Write("\n\n\n\t Wanna Delete");
             input = share.getException().inputNoWhenDelete();
-            share.getBookTable().deleteBookInDB(input, " 책 정보가 삭제되었습니다.");
+            if (input != "0")
+            {
+                share.getBookTable().deleteBookInDB(input, " 책 정보가 삭제되었습니다.");
+            }
+
         }
 
         public void searchBook(string category) //유저도 검색할 수 있다

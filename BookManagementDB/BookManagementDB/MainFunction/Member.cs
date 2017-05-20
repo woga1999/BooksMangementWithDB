@@ -29,12 +29,20 @@ namespace BookManagementDB
         public void deleteMember()
         {
             Console.Clear();
+            
             share.getMemberTable().memberAllSearchOfDB();
-            Console.WriteLine("\n\t Put to delete Member's Id ");
+            Console.WriteLine("\n\n\t Put to delete Member's Id ");
             string input2 = share.getException().inputIdWhenDelete("\t ID");
-
-            share.getMemberTable().deleteMemberInDB(input2, "정보가 삭제되었습니다.");
-                           
+            bool isRent = share.getRentTable().Checkrentbook(input2);
+            if (isRent.Equals(false))
+            {
+                share.getMemberTable().deleteMemberInDB(input2, "정보가 삭제되었습니다.");
+            }
+             else if (isRent.Equals(true))
+            {
+                Console.Write("\n\t\t대여 중인 책이 있으므로 삭제할 수 없습니다.");
+                Thread.Sleep(800);
+            }              
         }
 
         public void modifyMember() //회원이 로그인해서 회원수정하고 싶을 때

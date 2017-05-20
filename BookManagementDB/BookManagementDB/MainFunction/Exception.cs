@@ -19,14 +19,13 @@ namespace BookManagementDB
                 Console.SetCursorPosition(33, 10);
                 Console.Write("\t\t\t : ");
                 input = Console.ReadLine();
-                if (input == "") { input.Replace(input, "                                   "); continue; }
+                if (input == "") { continue; }
                 else if (input == key) { break; }
                 else if (input == key2) { break; }
                 else if (input == key3) { break; }
                 else if (input == key4) { break; }
                 else
                 {
-                    input.Replace(input, "                                ");
                     continue;
                 }
             }
@@ -170,7 +169,7 @@ namespace BookManagementDB
                         Console.WriteLine("\t\t목록을 참고하세요.                       <back> : 뒤로가기");
                     }
                 }
-                else if (input == "back") { Console.Clear(); share.getMenu().menuLoginAdmin(); }
+                else if (input == "back") { Console.Clear(); share.getMenu().adminMenu(); }
                 else if (!ismatch) { Console.WriteLine("올바른 아이디 형식이 아닙니다."); }
                 else { continue; }
             }
@@ -252,14 +251,16 @@ namespace BookManagementDB
                     break;
                 }
                 else if (!ismatch)
-                {if (!ismatch2)
+                {
+                    if (!ismatch2)
                     {
                         Console.WriteLine("\t if you entry Name first 'a-z', Upper(2~10 Digits)");
                     }
                     else
                     {
                         Console.WriteLine("\t 다시 입력해주세요(2~10자리이내 제한)");
-                    } }
+                    }
+                }
                
             }
             return input;
@@ -317,7 +318,7 @@ namespace BookManagementDB
                     if (IsExistedNo.Equals(true)) { Console.WriteLine("  존재하는 No입니다.     "); }
                     else if (IsExistedNo.Equals(false)) { break; }
                 }
-                else if (input == "back") { Console.Clear(); share.getMenu().menuLoginAdmin(); }
+                else if (input == "back") { Console.Clear(); share.getMenu().adminMenu(); }
                 else if (!ismatch)
                 {
                     Console.WriteLine("  1~20자리 내 숫자 입력만 가능합니다.  ");
@@ -339,7 +340,7 @@ namespace BookManagementDB
                     if (isExistedNo.Equals(true)) { break; }
                     else if (isExistedNo.Equals(false)) { Console.WriteLine("\t\t존재하지 않는 No입니다."); }
                 }
-                else if (input == "back") { Console.Clear(); share.getMenu().menuLoginAdmin(); break; }
+                else if (input == "back") { Console.Clear(); share.getMenu().adminMenu(); input = "0";  break; }
                 else if (!ismatch) { Console.WriteLine("\t\t숫자 입력만 가능합니다."); }
             }
             return input;

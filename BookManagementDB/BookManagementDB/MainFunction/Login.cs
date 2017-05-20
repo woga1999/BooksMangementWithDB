@@ -34,7 +34,7 @@ namespace BookManagementDB
             {
                 if (inputPwd == "admin")
                 {
-                    share.getMenu().menuLoginAdmin();
+                    share.getMenu().adminMenu();
                 }
                 else
                 {
